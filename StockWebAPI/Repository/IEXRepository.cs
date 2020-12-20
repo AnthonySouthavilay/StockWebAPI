@@ -9,13 +9,13 @@ namespace StockWebAPI.Repository
 {
     public class IEXRepository
     {
-        public CompanyInfo GetCompanyInfo(string stockSymbol)
+        public CompanyProfile GetCompanyInfo(string stockSymbol)
         {
             if (ContainsSpecialCharacter(stockSymbol))
             {
                 throw new ArgumentException($"{stockSymbol} is not a valid stock symbol");
             }
-            return new CompanyInfo()
+            return new CompanyProfile()
             {
                 symbol = stockSymbol
             };

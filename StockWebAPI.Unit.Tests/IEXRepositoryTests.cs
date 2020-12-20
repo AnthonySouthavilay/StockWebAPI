@@ -6,7 +6,7 @@ using System;
 
 namespace StockWebAPI.Unit.Tests
 {
-    public class RepositoryTests
+    public class IEXRepositoryTests
     {
         private IEXRepository iexRepo = new IEXRepository();
         private readonly string testStockSymbol = "TANK";
@@ -23,7 +23,7 @@ namespace StockWebAPI.Unit.Tests
         [TestCase("@!NK")]
         public void GetCompanyInformation_InvalidSymbol_ReturnsArgumentException(string invalidSymbol)
         {
-            var company = new CompanyInfo();
+            var company = new CompanyProfile();
             Action act = () => iexRepo.GetCompanyInfo(invalidSymbol);
             act.Should().Throw<ArgumentException>();
         }

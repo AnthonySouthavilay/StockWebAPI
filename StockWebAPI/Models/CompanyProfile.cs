@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace StockWebAPI.Models
+﻿namespace StockWebAPI.Models
 {
 
-    public class CompanyInfo
+    public class CompanyProfile
     {
         public string symbol { get; set; }
         public string companyName { get; set; }
