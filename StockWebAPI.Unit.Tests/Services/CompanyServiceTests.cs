@@ -30,5 +30,21 @@ namespace StockWebAPI.Unit.Tests.Services
             Action act = () => sut.GetCompanyProfile(invalidSymbol);
             act.Should().Throw<ArgumentException>();
         }
+
+        [TestCase(" T@NK")]
+        [TestCase("T@N3K ")]
+        [TestCase(null)]
+        public void GetCompanyProfile_SymbolHasWhiteSpaceOrIsNull_ReturnsArgumentException(string symbol)
+        {
+            Action act = () => sut.GetCompanyProfile(symbol);
+            act.Should().Throw<ArgumentException>();
+        }
+
+        [Test]
+        public void GetCompanyProfile_EmptySymbol_ReturnsArgumentException()
+        {
+            Action act = () => sut.GetCompanyProfile("");
+            act.Should().Throw<ArgumentException>();
+        }
     }
 }

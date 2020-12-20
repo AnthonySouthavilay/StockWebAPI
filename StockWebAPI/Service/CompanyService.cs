@@ -11,7 +11,7 @@ namespace StockWebAPI.Service
     {
         public CompanyProfileViewModel GetCompanyProfile(string symbol)
         {
-            if (ContainsSpecialCharacter(symbol))
+            if (ContainsSpecialCharacter(symbol) || string.IsNullOrEmpty(symbol))
             {
                 throw new ArgumentException($"{symbol} is not a valid stock symbol");
             }
