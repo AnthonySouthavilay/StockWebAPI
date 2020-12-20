@@ -11,20 +11,12 @@ namespace StockWebAPI.Repository
     {
         public CompanyProfile GetCompanyInfo(string stockSymbol)
         {
-            if (ContainsSpecialCharacter(stockSymbol))
-            {
-                throw new ArgumentException($"{stockSymbol} is not a valid stock symbol");
-            }
             return new CompanyProfile()
             {
                 symbol = stockSymbol
             };
         }
 
-        private static bool ContainsSpecialCharacter(string input)
-        {
-            Regex rgx = new Regex("[^A-Za-z0-9]");
-            return rgx.IsMatch(input);
-        }
+
     }
 }

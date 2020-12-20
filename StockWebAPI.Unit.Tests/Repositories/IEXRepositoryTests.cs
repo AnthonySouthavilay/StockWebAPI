@@ -17,15 +17,5 @@ namespace StockWebAPI.Unit.Tests
             var result = iexRepo.GetCompanyInfo(testStockSymbol);
             result.Should().NotBeNull();
         }
-
-        [TestCase("T@NK")]
-        [TestCase("T@N3K")]
-        [TestCase("@!NK")]
-        public void GetCompanyInformation_InvalidSymbol_ReturnsArgumentException(string invalidSymbol)
-        {
-            var company = new CompanyProfile();
-            Action act = () => iexRepo.GetCompanyInfo(invalidSymbol);
-            act.Should().Throw<ArgumentException>();
-        }
     }
 }
