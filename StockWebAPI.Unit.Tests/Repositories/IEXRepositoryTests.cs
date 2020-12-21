@@ -3,18 +3,21 @@ using StockWebAPI.Models;
 using StockWebAPI.Repository;
 using FluentAssertions;
 using System;
+using System.Threading.Tasks;
 
 namespace StockWebAPI.Unit.Tests
 {
     public class IEXRepositoryTests
     {
-        private IEXRepository iexRepo = new IEXRepository();
-        private readonly string testStockSymbol = "TANK";
+
+        private IEXRepository iexRepo = new IEXRepository(new System.Net.Http.HttpClient());
+        private readonly string testStockSymbol = "AAPL";
+        string mockReturnedJson = "{\"Name\":\"John Doe\",\"Occupation\":\"gardener\",\"DateOfBirth\":{\"year\":1995,\"month\":11,\"day\":30}}";
 
         [Test]
-        public void GetCompanyInformation_ValidSymbol_ReturnsModel()
+        public async Task GetCompanyInformation_ValidSymbol_ReturnsModelAsync()
         {
-            var result = iexRepo.GetCompanyInfo(testStockSymbol);
+            var result = await iexRepo.GetCompanyInfoAsync(testStockSymbol);
             result.Should().NotBeNull();
         }
     }

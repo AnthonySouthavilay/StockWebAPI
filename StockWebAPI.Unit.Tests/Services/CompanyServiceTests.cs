@@ -15,10 +15,10 @@ namespace StockWebAPI.Unit.Tests.Services
         private CompanyService sut = new CompanyService();
 
         [Test]
-        public void GetCompanyProfile_ValidSymbol_ReturnsCompanyProfileViewModel()
+        public async Task GetCompanyProfile_ValidSymbol_ReturnsCompanyProfileViewModelAsync()
         {
-            string symbol = "TANK";
-            CompanyProfileViewModel companyProfile = sut.GetCompanyProfile(symbol);
+            string symbol = "AAPL";
+            CompanyProfileViewModel companyProfile = await sut.GetCompanyProfileAsync(symbol);
             companyProfile.Should().NotBeNull();
         }
 
@@ -27,7 +27,7 @@ namespace StockWebAPI.Unit.Tests.Services
         [TestCase("@!NK")]
         public void GetCompanyProfile_InvalidSymbol_ReturnsArgumentException(string invalidSymbol)
         {
-            Action act = () => sut.GetCompanyProfile(invalidSymbol);
+            Action act = async () => await sut.GetCompanyProfileAsync(invalidSymbol);
             act.Should().Throw<ArgumentException>();
         }
 
@@ -36,14 +36,14 @@ namespace StockWebAPI.Unit.Tests.Services
         [TestCase(null)]
         public void GetCompanyProfile_SymbolHasWhiteSpaceOrIsNull_ReturnsArgumentException(string symbol)
         {
-            Action act = () => sut.GetCompanyProfile(symbol);
+            Action act = async () => await sut.GetCompanyProfileAsync(symbol);
             act.Should().Throw<ArgumentException>();
         }
 
         [Test]
         public void GetCompanyProfile_EmptySymbol_ReturnsArgumentException()
         {
-            Action act = () => sut.GetCompanyProfile("");
+            Action act = async () => await sut.GetCompanyProfileAsync("");
             act.Should().Throw<ArgumentException>();
         }
     }

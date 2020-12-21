@@ -1,7 +1,10 @@
-﻿using StockWebAPI.ViewModels;
+﻿using StockWebAPI.Models;
+using StockWebAPI.Repository;
+using StockWebAPI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -9,11 +12,18 @@ namespace StockWebAPI.Service
 {
     public class CompanyService
     {
-        public CompanyProfileViewModel GetCompanyProfile(string symbol)
+        private static HttpClient httpClient = new HttpClient();
+        IEXRepository iEXRepository = new IEXRepository(httpClient);
+
+        public async Task<CompanyProfileViewModel> GetCompanyProfileAsync(string symbol)
         {
+            CompanyProfile companyProfile;
+            CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
             if (IsValidSymbol(symbol))
             {
-                return new CompanyProfileViewModel() { Name = "Tank Southy LLC" };
+                companyProfile = await iEXRepository.GetCompanyInfoAsync(symbol);
+                companyProfileViewModel = companyProfileViewModel.ConvertToCompanyProfileViewModel(companyProfile);
+                return companyProfileViewModel;
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }
