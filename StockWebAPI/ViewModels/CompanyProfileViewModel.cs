@@ -13,7 +13,7 @@ namespace StockWebAPI.ViewModels
         public string CEO { get; set; }
         public Address Address { get; set; }
         public string WebsiteUrl { get; set; }
-        public string NumberOfEmployees { get; set; }
+        public int NumberOfEmployees { get; set; }
         public string Sector { get; set; }
         public string Industry { get; set; }
         public string Exchange { get; set; }

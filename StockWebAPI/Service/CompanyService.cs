@@ -12,8 +12,14 @@ namespace StockWebAPI.Service
 {
     public class CompanyService
     {
-        private static HttpClient httpClient = new HttpClient();
-        IEXRepository iEXRepository = new IEXRepository(httpClient);
+        private  HttpClient _httpClient;
+        private IEXRepository iEXRepository;
+
+        public CompanyService(HttpClient httpClient)
+        {
+            this._httpClient = httpClient;
+            this.iEXRepository = new IEXRepository(_httpClient);
+        }
 
         public async Task<CompanyProfileViewModel> GetCompanyProfileAsync(string symbol)
         {
