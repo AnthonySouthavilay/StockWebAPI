@@ -31,8 +31,8 @@ namespace StockWebAPI.Unit.Tests.Services
             act.Should().Throw<ArgumentException>();
         }
 
-        [TestCase(" T@NK")]
-        [TestCase("T@N3K ")]
+        [TestCase(" TANK")]
+        [TestCase("TN3K ")]
         [TestCase(null)]
         public void GetCompanyProfile_SymbolHasWhiteSpaceOrIsNull_ReturnsArgumentException(string symbol)
         {

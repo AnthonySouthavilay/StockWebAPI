@@ -11,17 +11,21 @@ namespace StockWebAPI.Service
     {
         public CompanyProfileViewModel GetCompanyProfile(string symbol)
         {
-            if (ContainsSpecialCharacter(symbol) || string.IsNullOrEmpty(symbol))
+            if (IsValidSymbol(symbol))
             {
-                throw new ArgumentException($"{symbol} is not a valid stock symbol");
+                return new CompanyProfileViewModel() { Name = "Tank Southy LLC" };
             }
-            return new CompanyProfileViewModel() { Name = "Tank Southy LLC" };
+            throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }
 
-        private static bool ContainsSpecialCharacter(string input)
+        private static bool IsValidSymbol(string input)
         {
             Regex rgx = new Regex("[^A-Za-z0-9]");
-            return rgx.IsMatch(input);
+            if(!rgx.IsMatch(input) && !string.IsNullOrEmpty(input))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
