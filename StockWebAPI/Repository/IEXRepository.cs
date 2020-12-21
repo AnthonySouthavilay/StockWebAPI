@@ -22,8 +22,7 @@ namespace StockWebAPI.Repository
         public async Task<CompanyProfile> GetCompanyInfoAsync(string stockSymbol)
         {
             var profile = new CompanyProfile();
-            string apiEndPoint = $"stock/{stockSymbol}/company?token=pk_4a54de4d315647e0a424c2238d17891d";
-
+            string apiEndPoint = $"stock/{stockSymbol}/company?token={token}";
             var requestUri = new Uri(baseUri, apiEndPoint);
             
             try

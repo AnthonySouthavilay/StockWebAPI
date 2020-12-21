@@ -14,7 +14,7 @@
         public string issueType { get; set; }
         public string sector { get; set; }
         public int primarySicCode { get; set; }
-        public string employees { get; set; }
+        public int employees { get; set; }
         public string[] tags { get; set; }
         public string address { get; set; }
         public object address2 { get; set; }
