@@ -1,6 +1,6 @@
 using System;
 
-namespace StockWebAPI
+namespace StockWebAPI.Models
 {
     public class WeatherForecast
     {
