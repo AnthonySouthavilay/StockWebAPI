@@ -43,6 +43,6 @@ namespace StockWebAPI.Unit.Tests.Repositories
             result.Should().Throw<Exception>().WithMessage("Unknown symbol");
             return Task.CompletedTask;
         }
-        {
+        
     }
 }

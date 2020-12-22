@@ -24,7 +24,9 @@ namespace StockWebAPI.Controllers
             _logger = logger;
         }
 
+        //https://localhost:5001/weatherforecast/summary
         [HttpGet]
+        [Route("Summary")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
