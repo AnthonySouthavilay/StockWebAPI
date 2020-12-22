@@ -21,7 +21,7 @@ namespace StockWebAPI.Repository
 
         public async Task<CompanyProfile> GetCompanyInfoAsync(string stockSymbol)
         {
-            var profile = new CompanyProfile();
+            CompanyProfile profile = new CompanyProfile();
             string apiEndPoint = $"stock/{stockSymbol}/company?token={token}";
             var requestUri = new Uri(baseUri, apiEndPoint);
             
@@ -31,9 +31,9 @@ namespace StockWebAPI.Repository
                 // fix employee property; doesnt seem to map
                 return profile;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("Unknown symbol");
             }
         }
 
