@@ -1,15 +1,12 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
-using StockWebAPI.ViewModels;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using StockWebAPI.Service;
-using System.Net.Http;
 using StockWebAPI.Unit.Tests.TestHelpers;
+using StockWebAPI.ViewModels;
+using System;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace StockWebAPI.Unit.Tests.Services
 {
@@ -43,8 +40,9 @@ namespace StockWebAPI.Unit.Tests.Services
         {
             mockMessageHandler = new MockMessageHandler("", HttpStatusCode.OK);
             httpClient = new HttpClient(mockMessageHandler);
-            Action act = async () => await sut.GetCompanyProfileAsync(invalidSymbol);
-            act.Should().Throw<ArgumentException>();
+            sut = new CompanyService(httpClient);
+            Func<Task> result = async () => { await sut.GetCompanyProfileAsync(invalidSymbol); };
+            result.Should().Throw<ArgumentException>();
         }
 
         [TestCase(" TANK")]
@@ -52,15 +50,21 @@ namespace StockWebAPI.Unit.Tests.Services
         [TestCase(null)]
         public void GetCompanyProfile_SymbolHasWhiteSpaceOrIsNull_ReturnsArgumentException(string symbol)
         {
-            Action act = async () => await sut.GetCompanyProfileAsync(symbol);
-            act.Should().Throw<ArgumentException>();
+            mockMessageHandler = new MockMessageHandler("", HttpStatusCode.OK);
+            httpClient = new HttpClient(mockMessageHandler);
+            sut = new CompanyService(httpClient);
+            Func<Task> result = async () => { await sut.GetCompanyProfileAsync(symbol); };
+            result.Should().Throw<ArgumentException>();
         }
 
         [Test]
         public void GetCompanyProfile_EmptySymbol_ReturnsArgumentException()
         {
-            Action act = async () => await sut.GetCompanyProfileAsync("");
-            act.Should().Throw<ArgumentException>();
+            mockMessageHandler = new MockMessageHandler("", HttpStatusCode.OK);
+            httpClient = new HttpClient(mockMessageHandler);
+            sut = new CompanyService(httpClient);
+            Func<Task> result = async () => { await sut.GetCompanyProfileAsync(""); };
+            result.Should().Throw<ArgumentException>();
         }
     }
 }
