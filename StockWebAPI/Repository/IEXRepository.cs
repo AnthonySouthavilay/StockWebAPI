@@ -18,7 +18,6 @@ namespace StockWebAPI.Repository
         {
             this._httpClient = httpClient;
         }
-
         public async Task<CompanyProfile> GetCompanyInfoAsync(string stockSymbol)
         {
             CompanyProfile profile = new CompanyProfile();
@@ -36,6 +35,7 @@ namespace StockWebAPI.Repository
                 throw new Exception("Unknown symbol");
             }
         }
+
 
     }
 }
