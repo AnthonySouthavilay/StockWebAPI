@@ -1,0 +1,55 @@
+﻿using FluentAssertions;
+using FluentAssertions.Execution;
+using NUnit.Framework;
+using StockWebAPI.Models;
+using StockWebAPI.Repository;
+using StockWebAPI.Unit.Tests.TestHelpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+
+
+namespace StockWebAPI.Unit.Tests.Repositories
+{
+    class AlphaVantageRespositoryTests
+    {
+        //private MockMessageHandler mockMessageHandler;
+        //private HttpClient httpClient;
+        private AlphaVantageRepository alphaVantageRepo;
+
+        [Test]
+        public void GetKeyInformation_ValidSymbol_ReturnsModel()
+        {
+            string symbol = "IBM";
+            //string mockJSONResponse = "{\"Symbol\":\"IBM\",\"AssetType\":\"Common Stock\",\"Name\":\"International Business Machines Corporation\",\"Description\":\"International Business Machines Corporation provides integrated solutions and services " +
+            //    "worldwide. Its Cloud & Cognitive Software segment offers software for vertical and domain-specific solutions in health, financial services, and Internet of Things (IoT), weather, and security software and services application areas; and " +
+            //    "customer information control system and storage, and analytics and integration software solutions to support client mission critical on-premise workloads in banking, airline, and retail industries. It also offers middleware and data " +
+            //    "platform software, including Red Hat that enables the operation of clients' hybrid multi-cloud environments; and Cloud Paks, WebSphere distributed, and analytics platform software, such as DB2 distributed, information integration, and " +
+            //    "enterprise content management, as well as IoT, Blockchain and AI Watson platforms. The company's Global Business Services segment offers business consulting services; system integration, application management, maintenance, and " +
+            //    "support services for packaged software; finance, procurement, talent and engagement, and industry-specific business process outsourcing services; and IT infrastructure and platform services. Its Global Technology Services segment provides " +
+            //    "project, managed, outsourcing, and cloud-delivered services for enterprise IT infrastructure environments; and IT infrastructure support services. The company's Systems segment offers servers for businesses, cloud service providers, and " +
+            //    "scientific computing organizations; data storage products and solutions; and OS, an enterprise operating system, as well as Linux. Its Global Financing segment provides lease, installment payment, loan financing, short-term working " +
+            //    "capital financing, and remanufacturing and remarketing services. The company was formerly known as Computing-Tabulating-Recording Co. The company was founded in 1911 and is headquartered in Armonk, New York.\"," +
+            //    "\"Exchange\":\"NYSE\",\"Currency\":\"USD\",\"Country\":\"USA\",\"Sector\":\"Technology\",\"Industry\":\"Information Technology Services\",\"Address\":\"One New Orchard Road, Armonk, NY, United States, 10504\"," +
+            //    "\"FullTimeEmployees\":\"352600\",\"FiscalYearEnd\":\"December\",\"LatestQuarter\":\"2020-09-30\",\"MarketCapitalization\":\"110183653376\",\"EBITDA\":\"15690000384\",\"PERatio\":\"14.0151\",\"PEGRatio\":\"9.3438\"," +
+            //    "\"BookValue\":\"23.801\",\"DividendPerShare\":\"6.52\",\"DividendYield\":\"0.0518\",\"EPS\":\"8.823\",\"RevenuePerShareTTM\":\"84.402\",\"ProfitMargin\":\"0.1053\",\"OperatingMarginTTM\":\"0.1205\",\"ReturnOnAssetsTTM\":\"0.0372\"," +
+            //    "\"ReturnOnEquityTTM\":\"0.401\",\"RevenueTTM\":\"75030003712\",\"GrossProfitTTM\":\"36489000000\",\"DilutedEPSTTM\":\"8.823\",\"QuarterlyEarningsGrowthYOY\":\"0.011\",\"QuarterlyRevenueGrowthYOY\":\"-0.026\",\"AnalystTargetPrice\":" +
+            //    "\"137.13\",\"TrailingPE\":\"14.0151\",\"ForwardPE\":\"10.7411\",\"PriceToSalesRatioTTM\":\"1.5017\",\"PriceToBookRatio\":\"5.2876\",\"EVToRevenue\":\"2.2249\",\"EVToEBITDA\":\"10.9021\",\"Beta\":\"1.2399\",\"52WeekHigh\":\"150.8394\"," +
+            //    "\"52WeekLow\":\"86.9458\",\"50DayMovingAverage\":\"120.8034\",\"200DayMovingAverage\":\"122.0729\",\"SharesOutstanding\":\"891057024\",\"SharesFloat\":\"889720530\",\"SharesShort\":\"22028993\",\"SharesShortPriorMonth\":\"24559462\"," +
+            //    "\"ShortRatio\":\"4.14\",\"ShortPercentOutstanding\":\"0.02\",\"ShortPercentFloat\":\"0.0247\",\"PercentInsiders\":\"0.116\",\"PercentInstitutions\":\"58.594\",\"ForwardAnnualDividendRate\":\"6.52\",\"ForwardAnnualDividendYield\":" +
+            //    "\"0.0518\",\"PayoutRatio\":\"0.5756\",\"DividendDate\":\"2020-12-10\",\"ExDividendDate\":\"2020-11-09\",\"LastSplitFactor\":\"2:1\",\"LastSplitDate\":\"1999-05-27\"}";
+            //mockMessageHandler = new MockMessageHandler(mockJSONResponse, HttpStatusCode.OK);
+            //httpClient = new HttpClient(mockMessageHandler);
+            HttpClient liveHttp = new HttpClient();
+            alphaVantageRepo = new AlphaVantageRepository(liveHttp);
+            CompanyKeyStats result = alphaVantageRepo.GetKeyInformation(symbol);
+            using (new AssertionScope())
+            {
+                result.Symbol.Should().Be(symbol);
+                result.Should().NotBeNull();
+            }
+        }
+    }
+}

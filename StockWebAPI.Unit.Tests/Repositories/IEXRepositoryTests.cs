@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using StockWebAPI.Unit.Tests.TestHelpers;
 using System.Net;
+using FluentAssertions.Execution;
 
 namespace StockWebAPI.Unit.Tests.Repositories
 {
@@ -17,7 +18,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
         private IEXRepository iexRepo;
 
         [Test]
-        public async Task GetCompanyInformation_ValidSymbol_ReturnsModelAsync()
+        public async Task GetCompanyInformation_ValidSymbol_ReturnsModel()
         {
             string testStockSymbol = "AAPL";
             string mockReturnedCompanyJSONResponse = "{\"symbol\":\"AAPL\",\"companyName\":\"Apple Inc.\",\"exchange\":\"NASDAQ\",\"industry\":\"Telecommunications Equipment\",\"website\":\"http://www.apple.com\"," +
@@ -28,7 +29,13 @@ namespace StockWebAPI.Unit.Tests.Repositories
             httpClient = new HttpClient(mockMessageHandler);
             iexRepo = new IEXRepository(httpClient);
             var result = await iexRepo.GetCompanyInfoAsync(testStockSymbol);
-            result.Should().NotBeNull();
+
+            using (new AssertionScope())
+            {
+                result.symbol.Should().Be(testStockSymbol);
+                result.Should().NotBeNull();
+            }
+
         }
 
         [Test]
@@ -42,7 +49,6 @@ namespace StockWebAPI.Unit.Tests.Repositories
             Func<Task> result = async () => { await iexRepo.GetCompanyInfoAsync(testUnknownSymbol); };
             result.Should().Throw<Exception>().WithMessage("Unknown symbol");
             return Task.CompletedTask;
-        }
-        {
+        }        
     }
 }
