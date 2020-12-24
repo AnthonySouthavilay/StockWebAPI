@@ -9,6 +9,7 @@ namespace StockWebAPI.ViewModels
     public class CompanyProfileViewModel
     {
         public string Name { get; set; }
+        public string Symbol { get; set; }
         public string Description { get; set; }
         public string CEO { get; set; }
         public Address Address { get; set; }
@@ -23,6 +24,7 @@ namespace StockWebAPI.ViewModels
             return new CompanyProfileViewModel()
             {
                 Name = companyProfile.companyName,
+                Symbol = companyProfile.symbol,
                 Description = companyProfile.description,
                 CEO = companyProfile.CEO,
                 Address = new Address()
@@ -33,7 +35,7 @@ namespace StockWebAPI.ViewModels
                     ZipCode = companyProfile.zip
                 },
                 WebsiteUrl = companyProfile.website,
-                //NumberOfEmployees = companyProfile.employees,
+                NumberOfEmployees = companyProfile.employees,
                 Sector = companyProfile.sector,
                 Industry = companyProfile.industry,
                 Exchange = companyProfile.exchange
