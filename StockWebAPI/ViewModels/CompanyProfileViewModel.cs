@@ -9,6 +9,7 @@ namespace StockWebAPI.ViewModels
     public class CompanyProfileViewModel
     {
         public string Name { get; set; }
+        public string Symbol { get; set; }
         public string Description { get; set; }
         public string CEO { get; set; }
         public Address Address { get; set; }
@@ -23,6 +24,7 @@ namespace StockWebAPI.ViewModels
             return new CompanyProfileViewModel()
             {
                 Name = companyProfile.companyName,
+                Symbol = companyProfile.symbol,
                 Description = companyProfile.description,
                 CEO = companyProfile.CEO,
                 Address = new Address()
@@ -33,11 +35,39 @@ namespace StockWebAPI.ViewModels
                     ZipCode = companyProfile.zip
                 },
                 WebsiteUrl = companyProfile.website,
-                //NumberOfEmployees = companyProfile.employees,
+                NumberOfEmployees = companyProfile.employees,
                 Sector = companyProfile.sector,
                 Industry = companyProfile.industry,
                 Exchange = companyProfile.exchange
             };
+        }
+
+        public CompanyProfileViewModel ConvertToCompanyProfileViewModel(CompanyKeyStats companyKeyStats)
+        {
+            return new CompanyProfileViewModel()
+            {
+                Name = companyKeyStats.Name,
+                Symbol = companyKeyStats.Symbol,
+                Description = companyKeyStats.Description,
+                Address = CompanyKeyStatsAddressConverter(companyKeyStats)
+            };
+        }
+
+        private Address CompanyKeyStatsAddressConverter(CompanyKeyStats companyKeyStats)
+        {
+            if (string.IsNullOrEmpty(companyKeyStats.Address))
+            {
+                return new Address();
+            }
+            string[] addressParts = companyKeyStats.Address.Split(", ");
+            Address address = new Address()
+            {
+                StreetAddress = addressParts[0],
+                City = addressParts[1],
+                State = addressParts[2],
+                ZipCode = addressParts[4]
+            };
+            return address;
         }
     }
 }
