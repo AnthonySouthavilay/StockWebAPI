@@ -1,4 +1,4 @@
-﻿namespace StockWebAPI.Models
+﻿namespace StockWebAPI.Models.IEXCloud
 {
 
     public class CompanyProfile

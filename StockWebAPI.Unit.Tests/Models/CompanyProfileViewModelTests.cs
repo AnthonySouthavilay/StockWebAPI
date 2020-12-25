@@ -2,6 +2,8 @@
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using StockWebAPI.Models;
+using StockWebAPI.Models.AlphaVantage;
+using StockWebAPI.Models.IEXCloud;
 using StockWebAPI.ViewModels;
 using System;
 using System.Collections.Generic;

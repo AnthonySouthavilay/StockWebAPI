@@ -1,4 +1,5 @@
 ﻿using StockWebAPI.Models;
+using StockWebAPI.Models.IEXCloud;
 using System;
 using System.Collections.Generic;
 using System.Linq;

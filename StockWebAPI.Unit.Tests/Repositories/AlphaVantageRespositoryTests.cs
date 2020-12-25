@@ -2,6 +2,7 @@
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using StockWebAPI.Models;
+using StockWebAPI.Models.AlphaVantage;
 using StockWebAPI.Repository;
 using StockWebAPI.Unit.Tests.TestHelpers;
 using System;

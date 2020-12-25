@@ -1,4 +1,5 @@
 ﻿using StockWebAPI.Models;
+using StockWebAPI.Models.IEXCloud;
 using StockWebAPI.Repository;
 using StockWebAPI.ViewModels;
 using System;
