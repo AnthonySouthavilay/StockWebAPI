@@ -27,16 +27,48 @@ namespace StockWebAPI.Unit.Tests.Models
                 employees = 1,
                 sector = "Pets",
                 industry = "Pets?",
-                exchange = "NYSE"
+                exchange = "NYSE",
+                zip = "12345"
             };
             var result = _companyProfileViewModel.ConvertToCompanyProfileViewModel(mockCompanyProfile);
             using (new AssertionScope())
             {
                 result.Symbol.Should().Be(mockCompanyProfile.symbol);
+                result.Address.ZipCode.Should().Be(mockCompanyProfile.zip);
                 result.Should().NotBeNull();
             }
         }
 
-        // Address test
+        [Test]
+        public void ConvertToCompanyProfileViewModel_CompanyKeyStats_ReturnsCompanyProfileViewModel()
+        {
+            CompanyKeyStats companyKeyStats = new CompanyKeyStats()
+            {
+                Name = "Tank Southy LLP",
+                Symbol = "BONE",
+                Description = "Woof Woof!",
+            };
+            var result = _companyProfileViewModel.ConvertToCompanyProfileViewModel(companyKeyStats);
+            using (new AssertionScope())
+            {
+                result.Symbol.Should().Be("BONE");
+                result.Should().NotBeNull();
+            }
+        }
+
+        [Test]
+        public void ConvertToCompanyProfileViewModel_CompanyKeyStatsAddress_ReturnsViewModelAddress()
+        {
+            CompanyKeyStats companyKeyStats = new CompanyKeyStats()
+            {
+                Address = "One Apple Park Way, Cupertino, CA, United States, 95014"
+            };
+            var result = _companyProfileViewModel.ConvertToCompanyProfileViewModel(companyKeyStats);
+            using (new AssertionScope())
+            {
+                result.Address.ZipCode.Should().Be("95014");
+                result.Address.State.Should().Be("CA");
+            };
+        }
     }
 }

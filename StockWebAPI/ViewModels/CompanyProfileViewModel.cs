@@ -41,5 +41,33 @@ namespace StockWebAPI.ViewModels
                 Exchange = companyProfile.exchange
             };
         }
+
+        public CompanyProfileViewModel ConvertToCompanyProfileViewModel(CompanyKeyStats companyKeyStats)
+        {
+            return new CompanyProfileViewModel()
+            {
+                Name = companyKeyStats.Name,
+                Symbol = companyKeyStats.Symbol,
+                Description = companyKeyStats.Description,
+                Address = CompanyKeyStatsAddressConverter(companyKeyStats)
+            };
+        }
+
+        private Address CompanyKeyStatsAddressConverter(CompanyKeyStats companyKeyStats)
+        {
+            if (string.IsNullOrEmpty(companyKeyStats.Address))
+            {
+                return new Address();
+            }
+            string[] addressParts = companyKeyStats.Address.Split(", ");
+            Address address = new Address()
+            {
+                StreetAddress = addressParts[0],
+                City = addressParts[1],
+                State = addressParts[2],
+                ZipCode = addressParts[4]
+            };
+            return address;
+        }
     }
 }
