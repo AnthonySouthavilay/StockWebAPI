@@ -19,7 +19,7 @@ namespace StockWebAPI.Repository
 
         public async Task<CompanyKeyStats> GetKeyInformationAsync(string symbol)
         {
-            CompanyKeyStats companyKeyStats = new CompanyKeyStats();
+            CompanyKeyStats companyKeyStats;
             string apiEndpoint = "OVERVIEW&symbol=IBM";
             var requestUri = ApiUriHelper(apiEndpoint);
 

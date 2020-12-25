@@ -1,10 +1,12 @@
-﻿using StockWebAPI.Models;
+﻿using Newtonsoft.Json;
+using StockWebAPI.Models;
 using StockWebAPI.Models.IEXCloud;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace StockWebAPI.Repository
@@ -21,7 +23,7 @@ namespace StockWebAPI.Repository
         }
         public async Task<CompanyProfile> GetCompanyInfoAsync(string stockSymbol)
         {
-            CompanyProfile profile = new CompanyProfile();
+            CompanyProfile profile;
             string apiEndPoint = $"stock/{stockSymbol}/company?token={token}";
             var requestUri = new Uri(baseUri, apiEndPoint);
             
@@ -37,6 +39,21 @@ namespace StockWebAPI.Repository
             }
         }
 
+        public async Task<Quote> GetQuoteAsync(string symbol)
+        {
+            Quote quote;
+            string apiEndPoint = $"stock/{symbol}/quote?token={token}";
+            var requestUri = new Uri(baseUri, apiEndPoint);
+            try
+            {
+                quote = await _httpClient.GetFromJsonAsync<Quote>(requestUri);
+                return quote;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
+        }
     }
 }

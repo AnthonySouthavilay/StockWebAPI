@@ -20,7 +20,7 @@ namespace StockWebAPI.Unit.Tests.Models
                 symbol = "TANK",
                 companyName = "Tank Southy LLC",
                 latestPrice = 101.30,
-                iexBidPrice = (int)101
+                iexBidPrice = (int?)101.00
             };
             CompanySummaryViewModel result = companySummaryViewModel.ConvertToCompanySummaryViewModel(quote);
             using (new AssertionScope())
