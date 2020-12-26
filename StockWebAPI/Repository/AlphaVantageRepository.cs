@@ -1,8 +1,10 @@
-﻿using StockWebAPI.Models;
+﻿using Newtonsoft.Json;
+using StockWebAPI.Models;
 using StockWebAPI.Models.AlphaVantage;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace StockWebAPI.Repository
@@ -20,9 +22,8 @@ namespace StockWebAPI.Repository
         public async Task<CompanyKeyStats> GetKeyInformationAsync(string symbol)
         {
             CompanyKeyStats companyKeyStats;
-            string apiEndpoint = "OVERVIEW&symbol=IBM";
-            var requestUri = ApiUriHelper(apiEndpoint);
-
+            string apiEndpoint = $"OVERVIEW";
+            Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
             try
             {
                 companyKeyStats = await _httpClient.GetFromJsonAsync<CompanyKeyStats>(requestUri);
@@ -33,17 +34,27 @@ namespace StockWebAPI.Repository
                 throw new Exception("Unknown symbol");
             }
         }
-
-        private static Uri ApiUriHelper(string apiEndpoint)
+        public async Task<AlphaVantageQuote> GetQuote(string symbol)
         {
-            Uri uri = new Uri($"{_baseUrl}{apiEndpoint}{apiKey}");
-            return uri;            
+            string apiEndpoint = "GLOBAL_QUOTE";
+            Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
+            try
+            {
+                string jsonString = await _httpClient.GetStringAsync(requestUri);
+                AlphaVantageGlobalQuote globalQuote = JsonConvert.DeserializeObject<AlphaVantageGlobalQuote>(jsonString);
+                return globalQuote.GlobalQuote;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unknown symbol");
+            }
+
         }
-
-
-
-
-
+        private static Uri ApiUriHelper(string apiEndpoint, string symbol)
+        {
+            Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}{apiKey}");
+            return uri;
+        }
 
     }
 }

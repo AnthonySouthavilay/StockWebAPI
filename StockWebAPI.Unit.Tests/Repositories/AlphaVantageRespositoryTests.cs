@@ -65,5 +65,15 @@ namespace StockWebAPI.Unit.Tests.Repositories
             result.Should().Throw<Exception>().WithMessage("Unknown symbol");
             return Task.CompletedTask;
         }
+
+        [Test]
+        public async Task GetQuote_ValidSymbol_ReturnsQuoteModel()
+        {
+            string symbol = "AAPL";
+            HttpClient httpClient = new HttpClient();
+            alphaVantageRepo = new AlphaVantageRepository(httpClient);
+            AlphaVantageQuote result = await alphaVantageRepo.GetQuote(symbol);
+            result.Should().NotBeNull();
+        }
     }
 }

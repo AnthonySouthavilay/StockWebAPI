@@ -57,7 +57,7 @@ namespace StockWebAPI.ViewModels
                 PERatio = quote.peRatio.ToString()
             };
         }
-        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(CompanyKeyStats keyStats, AlphaVantageQuote alphaVantageQuote)
+        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(CompanyKeyStats keyStats, AlphaVantageGlobalQuote alphaVantageQuote)
         {
             return new CompanySummaryViewModel()
             {

@@ -42,9 +42,9 @@ namespace StockWebAPI.Unit.Tests.Models
                 MarketCapitalization = "100",
                 PERatio = "22"
             };
-            AlphaVantageQuote alphaVantageQuote = new AlphaVantageQuote()
+            AlphaVantageGlobalQuote alphaVantageQuote = new AlphaVantageGlobalQuote()
             {
-                GlobalQuote = new GlobalQuote()
+                GlobalQuote = new AlphaVantageQuote()
                 {
                     Open = "125.0000",
                     ChangePercent = "0.6376%",
