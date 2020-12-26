@@ -1,6 +1,6 @@
 ﻿namespace StockWebAPI.Models.IEXCloud
 {
-    public class Quote
+    public class IEXQuote
     {
         public string symbol { get; set; }
         public string companyName { get; set; }

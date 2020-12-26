@@ -1,10 +1,9 @@
 ﻿using FluentAssertions.Execution;
 using NUnit.Framework;
-using StockWebAPI.Models;
 using StockWebAPI.ViewModels;
 using FluentAssertions;
-using StockWebAPI.Models.IEXCloud;
 using StockWebAPI.Models.AlphaVantage;
+using StockWebAPI.Models.IEXCloud;
 
 namespace StockWebAPI.Unit.Tests.Models
 {
@@ -15,7 +14,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanySummaryViewModel_Quote_ReturnsViewModel()
         {
-            Quote quote = new Quote()
+            IEXQuote quote = new IEXQuote()
             {
                 symbol = "TANK",
                 companyName = "Tank Southy LLC",
@@ -43,13 +42,27 @@ namespace StockWebAPI.Unit.Tests.Models
                 MarketCapitalization = "100",
                 PERatio = "22"
             };
-            CompanySummaryViewModel result = companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats);
+            AlphaVantageQuote alphaVantageQuote = new AlphaVantageQuote()
+            {
+                GlobalQuote = new GlobalQuote()
+                {
+                    Open = "125.0000",
+                    ChangePercent = "0.6376%",
+                    Price = "124.6900",
+                    High = "125.1000",
+                    Low = "124.2100",
+                    Volume = "100",
+                    PreviousClose = "123.9000",
+                    Change = "0.7900",
+                }
+            };
+            CompanySummaryViewModel result = companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats, alphaVantageQuote);
             using (new AssertionScope())
             {
                 result.Should().NotBeNull();
                 result.Symbol.Should().Be("TANK");
+                result.OpenPrice.Should().Be(125.00);
             }
-
         }
     }
 }

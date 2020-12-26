@@ -59,7 +59,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.OK);
             httpClient = new HttpClient(mockMessageHandler);
             iexRepo = new IEXRepository(httpClient);
-            Quote result = await iexRepo.GetQuoteAsync(symbol);
+            IEXQuote result = await iexRepo.GetQuoteAsync(symbol);
             using (new AssertionScope())
             {
                 result.Should().NotBeNull();

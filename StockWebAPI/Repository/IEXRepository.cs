@@ -39,14 +39,14 @@ namespace StockWebAPI.Repository
             }
         }
 
-        public async Task<Quote> GetQuoteAsync(string symbol)
+        public async Task<IEXQuote> GetQuoteAsync(string symbol)
         {
-            Quote quote;
+            IEXQuote quote;
             string apiEndPoint = $"stock/{symbol}/quote?token={token}";
             var requestUri = new Uri(baseUri, apiEndPoint);
             try
             {
-                quote = await _httpClient.GetFromJsonAsync<Quote>(requestUri);
+                quote = await _httpClient.GetFromJsonAsync<IEXQuote>(requestUri);
                 return quote;
             }
             catch (Exception ex)
