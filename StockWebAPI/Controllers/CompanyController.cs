@@ -13,7 +13,7 @@ namespace StockWebAPI.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private CompanyService companyService;
+        private CompanyService _companyService;
         private readonly HttpClient _httpClient;
 
         public CompanyController()
@@ -25,8 +25,8 @@ namespace StockWebAPI.Controllers
         [Route("{companySymbol}/CompanySummary")]
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string companySymbol)
         {
-            companyService = new CompanyService(_httpClient);
-            return await companyService.GetCompanySummaryAsync(companySymbol);
+            _companyService = new CompanyService(_httpClient);
+            return await _companyService.GetCompanySummaryAsync(companySymbol);
         }
     }
 }

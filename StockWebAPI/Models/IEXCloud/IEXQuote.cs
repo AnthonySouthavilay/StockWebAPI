@@ -58,6 +58,4 @@
         public long? lastTradeTime { get; set; }
         public bool isUSMarketOpen { get; set; }
     }
-
-
 }

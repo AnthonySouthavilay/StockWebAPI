@@ -31,8 +31,7 @@ namespace StockWebAPI.ViewModels
         public string MarketCap { get; set; }
         public string PERatio { get; set; }
         public string EPS { get; set; }
-        public double? DividendYield { get; set; }  
-
+        public double? DividendYield { get; set; }
         public CompanySummaryViewModel ConvertToCompanySummaryViewModel(IEXQuote quote)
         {
             return new CompanySummaryViewModel()

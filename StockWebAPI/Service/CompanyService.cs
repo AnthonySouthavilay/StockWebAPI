@@ -1,11 +1,8 @@
-﻿using StockWebAPI.Models;
-using StockWebAPI.Models.AlphaVantage;
+﻿using StockWebAPI.Models.AlphaVantage;
 using StockWebAPI.Models.IEXCloud;
 using StockWebAPI.Repository;
 using StockWebAPI.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -39,7 +36,6 @@ namespace StockWebAPI.Service
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string symbol)
         {
             CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
-
             if (IsValidSymbol(symbol))
             {
                 try
@@ -65,6 +61,5 @@ namespace StockWebAPI.Service
             }
             return false;
         }
-
     }
 }

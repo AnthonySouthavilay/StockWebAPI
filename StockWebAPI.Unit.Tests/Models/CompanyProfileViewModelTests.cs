@@ -1,21 +1,15 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
-using StockWebAPI.Models;
 using StockWebAPI.Models.AlphaVantage;
 using StockWebAPI.Models.IEXCloud;
 using StockWebAPI.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockWebAPI.Unit.Tests.Models
 {
     class CompanyProfileViewModelTests
     {
-        private CompanyProfileViewModel _companyProfileViewModel = new CompanyProfileViewModel();
+        private readonly CompanyProfileViewModel _companyProfileViewModel = new CompanyProfileViewModel();
         
         [Test]
         public void ConvertToCompanyProfileViewModel_CompanyProfile_ReturnsCompanyProfileViewModel()
