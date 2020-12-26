@@ -22,7 +22,7 @@ namespace StockWebAPI.Repository
         public async Task<CompanyKeyStats> GetKeyInformationAsync(string symbol)
         {
             CompanyKeyStats companyKeyStats;
-            string apiEndpoint = $"OVERVIEW";
+            string apiEndpoint = "OVERVIEW";
             Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
             try
             {
