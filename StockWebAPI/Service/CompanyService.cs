@@ -48,9 +48,14 @@ namespace StockWebAPI.Service
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string symbol)
         {
             CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
-            IEXQuote iEXQuote = await iEXRepository.GetQuoteAsync(symbol);
-            companySummaryViewModel = companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
-            return companySummaryViewModel;
+
+            if (IsValidSymbol(symbol))
+            {
+                IEXQuote iEXQuote = await iEXRepository.GetQuoteAsync(symbol);
+                companySummaryViewModel = companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
+                return companySummaryViewModel;
+            }
+            throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }
         private static bool IsValidSymbol(string input)
         {
