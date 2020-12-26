@@ -13,8 +13,8 @@ namespace StockWebAPI.Service
 {
     public class CompanyService
     {
-        private  HttpClient _httpClient;
-        private IEXRepository iEXRepository;
+        private readonly HttpClient _httpClient;
+        private readonly IEXRepository iEXRepository;
 
         public CompanyService(HttpClient httpClient)
         {
@@ -34,17 +34,6 @@ namespace StockWebAPI.Service
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }
-
-        // IEX - Key Stats, 5 per call per symbol for full stats
-        // AlphaAdvantage - Company Overview
-
-        // IEX - Logo
-
-
-        // Check Finnhub, https://developer.tradier.com/ ,
-        // Historical Data - https://marketstack.com/
-
-
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string symbol)
         {
             CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();

@@ -56,7 +56,7 @@ namespace StockWebAPI.Unit.Tests.Models
                     Change = "0.7900",
                 }
             };
-            CompanySummaryViewModel result = companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats, alphaVantageQuote);
+            CompanySummaryViewModel result = companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats, alphaVantageQuote.GlobalQuote);
             using (new AssertionScope())
             {
                 result.Should().NotBeNull();

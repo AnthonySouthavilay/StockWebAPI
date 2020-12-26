@@ -57,7 +57,7 @@ namespace StockWebAPI.ViewModels
                 PERatio = quote.peRatio.ToString()
             };
         }
-        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(CompanyKeyStats keyStats, AlphaVantageGlobalQuote alphaVantageQuote)
+        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(CompanyKeyStats keyStats, AlphaVantageQuote alphaVantageQuote)
         {
             return new CompanySummaryViewModel()
             {
@@ -69,14 +69,14 @@ namespace StockWebAPI.ViewModels
                 MarketCap = keyStats.MarketCapitalization,
                 PERatio = keyStats.PERatio,
                 EPS = keyStats.EPS,
-                OpenPrice = double.Parse(alphaVantageQuote.GlobalQuote.Open),
-                Price = double.Parse(alphaVantageQuote.GlobalQuote.Price),
-                HighPrice = double.Parse(alphaVantageQuote.GlobalQuote.High),
-                LowPrice = double.Parse(alphaVantageQuote.GlobalQuote.Low),
-                Volume = int.Parse(alphaVantageQuote.GlobalQuote.Volume),
-                PreviousClose = double.Parse(alphaVantageQuote.GlobalQuote.PreviousClose),
-                PriceChange = double.Parse(alphaVantageQuote.GlobalQuote.Change),
-                PriceChangePercent = double.Parse(alphaVantageQuote.GlobalQuote.ChangePercent),
+                OpenPrice = double.Parse(alphaVantageQuote.Open),
+                Price = double.Parse(alphaVantageQuote.Price),
+                HighPrice = double.Parse(alphaVantageQuote.High),
+                LowPrice = double.Parse(alphaVantageQuote.Low),
+                Volume = int.Parse(alphaVantageQuote.Volume),
+                PreviousClose = double.Parse(alphaVantageQuote.PreviousClose),
+                PriceChange = double.Parse(alphaVantageQuote.Change),
+                PriceChangePercent = double.Parse(alphaVantageQuote.ChangePercent),
             };
         }
     }
