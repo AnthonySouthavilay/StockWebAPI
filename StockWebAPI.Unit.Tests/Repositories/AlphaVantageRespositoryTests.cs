@@ -17,7 +17,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
     class AlphaVantageRespositoryTests
     {
         private MockMessageHandler mockMessageHandler;
-        private HttpClient httpClient;
+        private HttpClient _httpClient;
         private AlphaVantageRepository alphaVantageRepo;
 
         [Test]
@@ -42,7 +42,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
                 "\"ShortRatio\":\"4.14\",\"ShortPercentOutstanding\":\"0.02\",\"ShortPercentFloat\":\"0.0247\",\"PercentInsiders\":\"0.116\",\"PercentInstitutions\":\"58.594\",\"ForwardAnnualDividendRate\":\"6.52\",\"ForwardAnnualDividendYield\":" +
                 "\"0.0518\",\"PayoutRatio\":\"0.5756\",\"DividendDate\":\"2020-12-10\",\"ExDividendDate\":\"2020-11-09\",\"LastSplitFactor\":\"2:1\",\"LastSplitDate\":\"1999-05-27\"}";
             mockMessageHandler = new MockMessageHandler(mockJSONResponse, HttpStatusCode.OK);
-            httpClient = new HttpClient(mockMessageHandler);
+            _httpClient = new HttpClient(mockMessageHandler);
             HttpClient liveHttp = new HttpClient();
             alphaVantageRepo = new AlphaVantageRepository(liveHttp);
             CompanyKeyStats result = await alphaVantageRepo.GetKeyInformationAsync(symbol);
@@ -59,9 +59,38 @@ namespace StockWebAPI.Unit.Tests.Repositories
             string testUnknownSymbol = "G00G";
             string mockResponse = "Unknown symbol";
             mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.NotFound);
-            httpClient = new HttpClient(mockMessageHandler);
-            alphaVantageRepo = new AlphaVantageRepository(httpClient);
+            _httpClient = new HttpClient(mockMessageHandler);
+            alphaVantageRepo = new AlphaVantageRepository(_httpClient);
             Func<Task> result = async () => { await alphaVantageRepo.GetKeyInformationAsync(testUnknownSymbol); };
+            result.Should().Throw<Exception>().WithMessage("Unknown symbol");
+            return Task.CompletedTask;
+        }
+
+        [Test]
+        public async Task GetQuote_ValidSymbol_ReturnsQuoteModel()
+        {
+            string symbol = "TANK";
+            string mockResponse = "{\"Global Quote\":{\"01. symbol\":\"TANK\",\"02. open\":\"125.0000\",\"03. high\":\"125.1000\",\"04. low\":\"124.2100\",\"05. price\":\"124.6900\",\"06. volume\":\"1761122\",\"07. latest trading day\":\"2020-12-24\",\"08. previous close\":\"123.9000\",\"09. change\":\"0.7900\",\"10. change percent\":\"0.6376%\"}}";
+            mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.OK);
+            _httpClient = new HttpClient(mockMessageHandler);
+            alphaVantageRepo = new AlphaVantageRepository(_httpClient);
+            AlphaVantageQuote result = await alphaVantageRepo.GetQuote(symbol);
+            using (new AssertionScope())
+            {
+                result.Symbol.Should().Be(symbol);
+                result.Should().NotBeNull();
+            }
+        }
+
+        [Test]
+        public Task GetQuote_InvalidSymbol_ThrowsException()
+        {
+            string testUnknownSymbol = "G00G";
+            string mockResponse = "Unknown symbol";
+            mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.NotFound);
+            _httpClient = new HttpClient(mockMessageHandler);
+            alphaVantageRepo = new AlphaVantageRepository(_httpClient);
+            Func<Task> result = async () => { await alphaVantageRepo.GetQuote(testUnknownSymbol); };
             result.Should().Throw<Exception>().WithMessage("Unknown symbol");
             return Task.CompletedTask;
         }
