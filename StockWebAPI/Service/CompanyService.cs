@@ -44,14 +44,23 @@ namespace StockWebAPI.Service
         // Check Finnhub, https://developer.tradier.com/ ,
         // Historical Data - https://marketstack.com/
 
+
+        public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string symbol)
+        {
+            CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
+            IEXQuote iEXQuote = await iEXRepository.GetQuoteAsync(symbol);
+            companySummaryViewModel = companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
+            return companySummaryViewModel;
+        }
         private static bool IsValidSymbol(string input)
         {
             Regex rgx = new Regex("[^A-Za-z0-9]");
-            if(!rgx.IsMatch(input) && !string.IsNullOrEmpty(input))
+            if (!rgx.IsMatch(input) && !string.IsNullOrEmpty(input))
             {
                 return true;
             }
             return false;
         }
+
     }
 }
