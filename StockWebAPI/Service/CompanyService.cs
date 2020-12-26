@@ -44,7 +44,7 @@ namespace StockWebAPI.Service
             {
                 try
                 {
-                    IEXQuote iEXQuote = await _iEXRepository.GetQuoteAsync("23");
+                    IEXQuote iEXQuote = await _iEXRepository.GetQuoteAsync(symbol);
                     return companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
                 }
                 catch
