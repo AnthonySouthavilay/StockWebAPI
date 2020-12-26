@@ -1,4 +1,5 @@
 ﻿using StockWebAPI.Models;
+using StockWebAPI.Models.AlphaVantage;
 using StockWebAPI.Models.IEXCloud;
 using StockWebAPI.Repository;
 using StockWebAPI.ViewModels;
@@ -14,12 +15,14 @@ namespace StockWebAPI.Service
     public class CompanyService
     {
         private readonly HttpClient _httpClient;
-        private readonly IEXRepository iEXRepository;
+        private readonly IEXRepository _iEXRepository;
+        private readonly AlphaVantageRepository _alphaVantageRepository;
 
         public CompanyService(HttpClient httpClient)
         {
             this._httpClient = httpClient;
-            this.iEXRepository = new IEXRepository(_httpClient);
+            this._iEXRepository = new IEXRepository(_httpClient);
+            this._alphaVantageRepository = new AlphaVantageRepository(_httpClient);
         }
 
         public async Task<CompanyProfileViewModel> GetCompanyProfileAsync(string symbol)
@@ -28,9 +31,8 @@ namespace StockWebAPI.Service
             CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
             if (IsValidSymbol(symbol))
             {
-                companyProfile = await iEXRepository.GetCompanyInfoAsync(symbol);
-                companyProfileViewModel = companyProfileViewModel.ConvertToCompanyProfileViewModel(companyProfile);
-                return companyProfileViewModel;
+                companyProfile = await _iEXRepository.GetCompanyInfoAsync(symbol);
+                return companyProfileViewModel.ConvertToCompanyProfileViewModel(companyProfile);
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }
@@ -40,9 +42,17 @@ namespace StockWebAPI.Service
 
             if (IsValidSymbol(symbol))
             {
-                IEXQuote iEXQuote = await iEXRepository.GetQuoteAsync(symbol);
-                companySummaryViewModel = companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
-                return companySummaryViewModel;
+                try
+                {
+                    IEXQuote iEXQuote = await _iEXRepository.GetQuoteAsync("23");
+                    return companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
+                }
+                catch
+                {
+                    CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
+                    AlphaVantageQuote alphaVantageQuote = await _alphaVantageRepository.GetQuote(symbol);
+                    return companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats, alphaVantageQuote);
+                }
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }

@@ -21,13 +21,11 @@ namespace StockWebAPI.Repository
 
         public async Task<CompanyKeyStats> GetKeyInformationAsync(string symbol)
         {
-            CompanyKeyStats companyKeyStats;
             string apiEndpoint = "OVERVIEW";
             Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
             try
             {
-                companyKeyStats = await _httpClient.GetFromJsonAsync<CompanyKeyStats>(requestUri);
-                return companyKeyStats;
+                return await _httpClient.GetFromJsonAsync<CompanyKeyStats>(requestUri);
             }
             catch (Exception)
             {
