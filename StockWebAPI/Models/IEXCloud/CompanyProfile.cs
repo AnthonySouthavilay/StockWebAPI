@@ -1,6 +1,5 @@
-﻿namespace StockWebAPI.Models
+﻿namespace StockWebAPI.Models.IEXCloud
 {
-
     public class CompanyProfile
     {
         public string symbol { get; set; }
@@ -24,5 +23,4 @@
         public string country { get; set; }
         public string phone { get; set; }
     }
-
 }

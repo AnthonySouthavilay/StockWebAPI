@@ -1,8 +1,6 @@
 ﻿using StockWebAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using StockWebAPI.Models.AlphaVantage;
+using StockWebAPI.Models.IEXCloud;
 
 namespace StockWebAPI.ViewModels
 {
@@ -18,7 +16,6 @@ namespace StockWebAPI.ViewModels
         public string Sector { get; set; }
         public string Industry { get; set; }
         public string Exchange { get; set; }
-
         public CompanyProfileViewModel ConvertToCompanyProfileViewModel(CompanyProfile companyProfile)
         {
             return new CompanyProfileViewModel()
@@ -41,7 +38,6 @@ namespace StockWebAPI.ViewModels
                 Exchange = companyProfile.exchange
             };
         }
-
         public CompanyProfileViewModel ConvertToCompanyProfileViewModel(CompanyKeyStats companyKeyStats)
         {
             return new CompanyProfileViewModel()
@@ -52,8 +48,7 @@ namespace StockWebAPI.ViewModels
                 Address = CompanyKeyStatsAddressConverter(companyKeyStats)
             };
         }
-
-        private Address CompanyKeyStatsAddressConverter(CompanyKeyStats companyKeyStats)
+        private static Address CompanyKeyStatsAddressConverter(CompanyKeyStats companyKeyStats)
         {
             if (string.IsNullOrEmpty(companyKeyStats.Address))
             {
