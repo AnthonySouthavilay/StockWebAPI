@@ -18,7 +18,7 @@ namespace StockWebAPI.Unit.Tests.Services
         private CompanyService _sut;
 
         [Test]
-        public async Task GetCompanyProfile_ValidSymbol_ReturnsCompanyProfileViewModelAsync()
+        public async Task GetCompanyProfile_ValidSymbol_ReturnsCompanyProfileViewModel()
         {
             string symbol = "AAPL";
             // mock json response

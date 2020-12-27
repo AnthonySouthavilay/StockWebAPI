@@ -28,8 +28,17 @@ namespace StockWebAPI.Service
             CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
             if (IsValidSymbol(symbol))
             {
-                companyProfile = await _iEXRepository.GetCompanyInfoAsync(symbol);
-                return companyProfileViewModel.ConvertToCompanyProfileViewModel(companyProfile);
+                try
+                {
+                    companyProfile = await _iEXRepository.GetCompanyInfoAsync(symbol);
+                    return companyProfileViewModel.ConvertToCompanyProfileViewModel(companyProfile);
+                }
+                catch
+                {
+                    CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
+                    return companyProfileViewModel.ConvertToCompanyProfileViewModel(keyStats);
+                }
+
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }

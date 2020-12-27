@@ -30,7 +30,6 @@ namespace StockWebAPI.Repository
             try
             {
                 profile = await _httpClient.GetFromJsonAsync<CompanyProfile>(requestUri);
-                // fix employee property; doesnt seem to map
                 return profile;
             }
             catch(Exception)
