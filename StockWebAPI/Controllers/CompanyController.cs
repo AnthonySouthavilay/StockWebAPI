@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using StockWebAPI.Service;
 using StockWebAPI.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -27,6 +24,14 @@ namespace StockWebAPI.Controllers
         {
             _companyService = new CompanyService(_httpClient);
             return await _companyService.GetCompanySummaryAsync(companySymbol);
+        }
+
+        [HttpGet]
+        [Route("{companySymbol}/CompanyProfile")]
+        public async Task<CompanyProfileViewModel> GetCompanyProfileAsync(string companySymbol)
+        {
+            _companyService = new CompanyService(_httpClient);
+            return await _companyService.GetCompanyProfileAsync(companySymbol);
         }
     }
 }

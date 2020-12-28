@@ -12,11 +12,11 @@
         public string securityName { get; set; }
         public string issueType { get; set; }
         public string sector { get; set; }
-        public int primarySicCode { get; set; }
-        public int employees { get; set; }
+        public int? primarySicCode { get; set; }
+        public int? employees { get; set; }
         public string[] tags { get; set; }
         public string address { get; set; }
-        public object address2 { get; set; }
+        public string address2 { get; set; }
         public string state { get; set; }
         public string city { get; set; }
         public string zip { get; set; }
