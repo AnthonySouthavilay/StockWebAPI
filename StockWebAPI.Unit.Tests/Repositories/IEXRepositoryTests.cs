@@ -8,6 +8,7 @@ using StockWebAPI.Unit.Tests.TestHelpers;
 using System.Net;
 using FluentAssertions.Execution;
 using StockWebAPI.Models.IEXCloud;
+using StockWebAPI.ViewModels;
 
 namespace StockWebAPI.Unit.Tests.Repositories
 {
@@ -28,10 +29,11 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _mockMessageHandler = new MockMessageHandler(mockReturnedCompanyJSONResponse, HttpStatusCode.OK);
             _httpClient = new HttpClient(_mockMessageHandler);
             _iexRepo = new IEXRepository(_httpClient);
-            var result = await _iexRepo.GetCompanyInfoAsync(testStockSymbol);
+            CompanyProfile result = await _iexRepo.GetCompanyInfoAsync(testStockSymbol);
             using (new AssertionScope())
             {
                 result.symbol.Should().Be(testStockSymbol);
+                result.employees.Should().Be(132000);
                 result.Should().NotBeNull();
             }
         }

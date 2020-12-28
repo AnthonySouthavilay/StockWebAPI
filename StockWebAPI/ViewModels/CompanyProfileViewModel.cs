@@ -12,7 +12,7 @@ namespace StockWebAPI.ViewModels
         public string CEO { get; set; }
         public Address Address { get; set; }
         public string WebsiteUrl { get; set; }
-        public int NumberOfEmployees { get; set; }
+        public int? NumberOfEmployees { get; set; }
         public string Sector { get; set; }
         public string Industry { get; set; }
         public string Exchange { get; set; }
@@ -45,7 +45,11 @@ namespace StockWebAPI.ViewModels
                 Name = companyKeyStats.Name,
                 Symbol = companyKeyStats.Symbol,
                 Description = companyKeyStats.Description,
-                Address = CompanyKeyStatsAddressConverter(companyKeyStats)
+                Address = CompanyKeyStatsAddressConverter(companyKeyStats),
+                NumberOfEmployees = int.Parse(companyKeyStats.FullTimeEmployees),
+                Exchange = companyKeyStats.Exchange,
+                Sector = companyKeyStats.Sector,
+                Industry = companyKeyStats.Industry
             };
         }
         private static Address CompanyKeyStatsAddressConverter(CompanyKeyStats companyKeyStats)

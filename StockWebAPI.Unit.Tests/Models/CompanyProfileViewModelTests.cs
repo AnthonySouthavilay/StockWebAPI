@@ -43,6 +43,7 @@ namespace StockWebAPI.Unit.Tests.Models
                 Name = "Tank Southy LLP",
                 Symbol = "BONE",
                 Description = "Woof Woof!",
+                FullTimeEmployees = "23"
             };
             var result = _companyProfileViewModel.ConvertToCompanyProfileViewModel(companyKeyStats);
             using (new AssertionScope())
@@ -57,7 +58,8 @@ namespace StockWebAPI.Unit.Tests.Models
         {
             CompanyKeyStats companyKeyStats = new CompanyKeyStats()
             {
-                Address = "One Apple Park Way, Cupertino, CA, United States, 95014"
+                Address = "One Apple Park Way, Cupertino, CA, United States, 95014",
+                FullTimeEmployees = "2"
             };
             var result = _companyProfileViewModel.ConvertToCompanyProfileViewModel(companyKeyStats);
             using (new AssertionScope())
