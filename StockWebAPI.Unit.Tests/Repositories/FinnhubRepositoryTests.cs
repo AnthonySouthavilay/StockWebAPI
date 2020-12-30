@@ -20,7 +20,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             string symbol = "AAPL";
             HttpClient realHttp = new HttpClient();
             finnhubRepo = new FinnhubRepository(realHttp);
-            CompanyNews result = await finnhubRepo.GetCompanyNewsAsync(symbol);
+            CompanyNews[] result = await finnhubRepo.GetCompanyNewsAsync(symbol);
             result.Should().NotBeNull();
         }
     }

@@ -1,9 +1,11 @@
-﻿using StockWebAPI.Models.Finnhub;
+﻿using Newtonsoft.Json;
+using StockWebAPI.Models.Finnhub;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace StockWebAPI.Repository
@@ -19,12 +21,12 @@ namespace StockWebAPI.Repository
             this._httpClient = httpClient;
         }
 
-        public async Task<CompanyNews> GetCompanyNewsAsync(string symbol)
+        public async Task<CompanyNews[]> GetCompanyNewsAsync(string symbol)
         {
-            CompanyNews companyNews;
+            CompanyNews[] companyNews;
             try
             {
-                companyNews = await _httpClient.GetFromJsonAsync<CompanyNews>(new Uri($"{_requestUrl}{_token}"));
+                companyNews = await _httpClient.GetFromJsonAsync<CompanyNews[]>(new Uri($"{_requestUrl}{_token}"));
                 return companyNews;
             }
             catch(Exception ex)
