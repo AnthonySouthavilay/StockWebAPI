@@ -11,6 +11,7 @@ namespace StockWebAPI.Controllers
     public class CompanyController : ControllerBase
     {
         private CompanyService _companyService;
+        private NewsService _newsService;
         private readonly HttpClient _httpClient;
 
         public CompanyController()
@@ -32,6 +33,22 @@ namespace StockWebAPI.Controllers
         {
             _companyService = new CompanyService(_httpClient);
             return await _companyService.GetCompanyProfileAsync(companySymbol);
+        }
+
+        [HttpGet]
+        [Route("{companySymbol}/CurrentNews")]
+        public async Task<CompanyNewsViewModel[]> GetCurrentCompanyNewsAsync(string companySymbol)
+        {
+            _newsService = new NewsService(_httpClient);
+            return await _newsService.GetCompanyNewsAsync(companySymbol);
+        }
+
+        [HttpGet]
+        [Route("{companySymbol}/News/{startDate}/{endDate}")]
+        public async Task<CompanyNewsViewModel[]> GetCompanyNewsAsync(string companySymbol, string startDate, string endDate)
+        {
+            _newsService = new NewsService(_httpClient);
+            return await _newsService.GetCompanyNewsAsync(companySymbol, startDate, endDate);
         }
     }
 }
