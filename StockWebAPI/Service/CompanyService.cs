@@ -1,10 +1,10 @@
-﻿using StockWebAPI.Models.AlphaVantage;
+﻿using StockWebAPI.Helpers;
+using StockWebAPI.Models.AlphaVantage;
 using StockWebAPI.Models.IEXCloud;
 using StockWebAPI.Repository;
 using StockWebAPI.ViewModels;
 using System;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace StockWebAPI.Service
@@ -26,7 +26,7 @@ namespace StockWebAPI.Service
         {
             CompanyProfile companyProfile;
             CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
-            if (IsValidSymbol(symbol))
+            if (symbol.IsValid())
             {
                 try
                 {
@@ -45,7 +45,7 @@ namespace StockWebAPI.Service
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string symbol)
         {
             CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
-            if (IsValidSymbol(symbol))
+            if (symbol.IsValid())
             {
                 try
                 {
@@ -60,15 +60,6 @@ namespace StockWebAPI.Service
                 }
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
-        }
-        private static bool IsValidSymbol(string input)
-        {
-            Regex rgx = new Regex("[^A-Za-z0-9]");
-            if (!rgx.IsMatch(input) && !string.IsNullOrEmpty(input))
-            {
-                return true;
-            }
-            return false;
         }
     }
 }
