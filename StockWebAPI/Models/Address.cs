@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace StockWebAPI.Models
+﻿namespace StockWebAPI.Models
 {
     public class Address
     {

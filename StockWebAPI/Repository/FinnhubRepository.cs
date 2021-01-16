@@ -1,20 +1,16 @@
-﻿using Newtonsoft.Json;
-using StockWebAPI.Models.Finnhub;
+﻿using StockWebAPI.Models.Finnhub;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace StockWebAPI.Repository
 {
     public class FinnhubRepository
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
         private const string _baseUrl = "https://finnhub.io/api/v1/";
-        private Uri _requestUri;
+
         private const string _token = "bvl85tn48v6sqkppa030";
 
         public FinnhubRepository(HttpClient httpClient)
@@ -26,6 +22,7 @@ namespace StockWebAPI.Repository
         {
             CompanyNews[] companyNews;
             string apiEndpoint = "company-news";
+            Uri _requestUri;
             try
             {
                 _requestUri = RequestUriHelper(symbol, apiEndpoint, startDate, endDate);
@@ -42,6 +39,7 @@ namespace StockWebAPI.Repository
         {
             CompanyNews[] companyNews;
             string apiEndpoint = "company-news";
+            Uri _requestUri;
             try
             {
                 _requestUri = RequestUriHelper(symbol, apiEndpoint);

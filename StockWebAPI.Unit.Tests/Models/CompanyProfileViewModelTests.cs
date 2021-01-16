@@ -66,7 +66,7 @@ namespace StockWebAPI.Unit.Tests.Models
             {
                 result.Address.ZipCode.Should().Be("95014");
                 result.Address.State.Should().Be("CA");
-            };
+            }
         }
     }
 }
