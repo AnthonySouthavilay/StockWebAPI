@@ -9,8 +9,6 @@ namespace StockWebAPI.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private CompanyService _companyService;
-        private NewsService _newsService;
         private readonly HttpClient _httpClient;
 
         public CompanyController()
@@ -22,7 +20,7 @@ namespace StockWebAPI.Controllers
         [Route("{companySymbol}/CompanySummary")]
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string companySymbol)
         {
-            _companyService = new CompanyService(_httpClient);
+            var _companyService = new CompanyService(_httpClient);
             return await _companyService.GetCompanySummaryAsync(companySymbol);
         }
 
@@ -30,7 +28,7 @@ namespace StockWebAPI.Controllers
         [Route("{companySymbol}/CompanyProfile")]
         public async Task<CompanyProfileViewModel> GetCompanyProfileAsync(string companySymbol)
         {
-            _companyService = new CompanyService(_httpClient);
+            var _companyService = new CompanyService(_httpClient);
             return await _companyService.GetCompanyProfileAsync(companySymbol);
         }
 
@@ -38,7 +36,7 @@ namespace StockWebAPI.Controllers
         [Route("{companySymbol}/CurrentNews")]
         public async Task<CompanyNewsViewModel[]> GetCurrentCompanyNewsAsync(string companySymbol)
         {
-            _newsService = new NewsService(_httpClient);
+            var _newsService = new NewsService(_httpClient);
             return await _newsService.GetCompanyNewsAsync(companySymbol);
         }
 
@@ -46,7 +44,7 @@ namespace StockWebAPI.Controllers
         [Route("{companySymbol}/News/{startDate}/{endDate}")]
         public async Task<CompanyNewsViewModel[]> GetCompanyNewsAsync(string companySymbol, string startDate, string endDate)
         {
-            _newsService = new NewsService(_httpClient);
+            var _newsService = new NewsService(_httpClient);
             return await _newsService.GetCompanyNewsAsync(companySymbol, startDate, endDate);
         }
     }
