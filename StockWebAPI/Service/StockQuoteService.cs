@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+
 namespace StockWebAPI.Service
 {
     public class StockQuoteService

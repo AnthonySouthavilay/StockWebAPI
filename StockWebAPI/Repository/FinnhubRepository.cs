@@ -1,20 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
 using StockWebAPI.Models.Finnhub;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace StockWebAPI.Repository
 {
     public class FinnhubRepository
     {
-        private HttpClient _httpClient;
-        private const string _baseUrl = "https://finnhub.io/api/v1/";
-        private Uri _requestUri;
+        private readonly HttpClient _httpClient;
         private const string _token = "bvl85tn48v6sqkppa030";
 
         public FinnhubRepository(HttpClient httpClient)
@@ -26,6 +21,7 @@ namespace StockWebAPI.Repository
         {
             CompanyNews[] companyNews;
             string apiEndpoint = "company-news";
+            Uri _requestUri;
             try
             {
                 _requestUri = RequestUriHelper(symbol, apiEndpoint, startDate, endDate);
@@ -42,6 +38,7 @@ namespace StockWebAPI.Repository
         {
             CompanyNews[] companyNews;
             string apiEndpoint = "company-news";
+            Uri _requestUri;
             try
             {
                 _requestUri = RequestUriHelper(symbol, apiEndpoint);
@@ -56,6 +53,10 @@ namespace StockWebAPI.Repository
 
         private static Uri RequestUriHelper(string symbol, string apiEndpoint, DateTime startDate = new (), DateTime endDate = new ())
         {
+            IConfiguration config = new ConfigurationBuilder()
+              .AddJsonFile("appsettings.json", true, true)
+              .Build();
+            string _baseUrl = config["FinnHub"];
             DateTime today = DateTime.Today;
             return startDate == DateTime.MinValue || endDate == DateTime.MinValue
                 ? new Uri($"{_baseUrl}{apiEndpoint}?symbol={symbol}&from={today:yyyy-MM-dd}&to={today:yyyy-MM-dd}&token={_token}")

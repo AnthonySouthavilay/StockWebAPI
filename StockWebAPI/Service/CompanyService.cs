@@ -12,13 +12,13 @@ namespace StockWebAPI.Service
     public class CompanyService
     {
         private readonly HttpClient _httpClient;
-        private readonly IEXRepository _iEXRepository;
+        private readonly IexRepository _iEXRepository;
         private readonly AlphaVantageRepository _alphaVantageRepository;
 
         public CompanyService(HttpClient httpClient)
         {
             this._httpClient = httpClient;
-            this._iEXRepository = new IEXRepository(_httpClient);
+            this._iEXRepository = new IexRepository(_httpClient);
             this._alphaVantageRepository = new AlphaVantageRepository(_httpClient);
         }
 
@@ -49,7 +49,7 @@ namespace StockWebAPI.Service
             {
                 try
                 {
-                    IEXQuote iEXQuote = await _iEXRepository.GetQuoteAsync(symbol);
+                    IexQuote iEXQuote = await _iEXRepository.GetQuoteAsync(symbol);
                     return companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
                 }
                 catch

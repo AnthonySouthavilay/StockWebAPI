@@ -14,7 +14,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanySummaryViewModel_Quote_ReturnsViewModel()
         {
-            IEXQuote quote = new IEXQuote()
+            IexQuote quote = new IexQuote()
             {
                 symbol = "TANK",
                 companyName = "Tank Southy LLC",

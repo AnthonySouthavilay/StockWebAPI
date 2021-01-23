@@ -1,4 +1,5 @@
-﻿using StockWebAPI.Models.IEXCloud;
+﻿using Microsoft.Extensions.Configuration;
+using StockWebAPI.Models.IEXCloud;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -6,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace StockWebAPI.Repository
 {
-    public class IEXRepository
+    public class IexRepository
     {
-        private static string _baseUrl = "https://cloud.iexapis.com/stable/";
         private const string token = "pk_4a54de4d315647e0a424c2238d17891d";
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
-        public IEXRepository(HttpClient httpClient)
+        public IexRepository(HttpClient httpClient)
         {
             this._httpClient = httpClient;
         }
@@ -32,14 +32,14 @@ namespace StockWebAPI.Repository
             }
         }
 
-        public async Task<IEXQuote> GetQuoteAsync(string symbol)
+        public async Task<IexQuote> GetQuoteAsync(string symbol)
         {
-            IEXQuote quote;
+            IexQuote quote;
             string apiEndPoint = "quote";
             Uri requestUri = ApiUriHelper(apiEndPoint, symbol);
             try
             {
-                quote = await _httpClient.GetFromJsonAsync<IEXQuote>(requestUri);
+                quote = await _httpClient.GetFromJsonAsync<IexQuote>(requestUri);
                 return quote;
             }
             catch (Exception ex)
@@ -51,6 +51,10 @@ namespace StockWebAPI.Repository
 
         private static Uri ApiUriHelper(string apiEndpoint, string symbol)
         {
+            IConfiguration config = new ConfigurationBuilder()
+              .AddJsonFile("appsettings.json", true, true)
+              .Build();
+            string _baseUrl = config["Iex"];
             Uri uri = new Uri($"{_baseUrl}stock/{symbol}/{apiEndpoint}?token={token}");
             return uri;
         }
