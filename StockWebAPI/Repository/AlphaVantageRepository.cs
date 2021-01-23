@@ -4,13 +4,17 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace StockWebAPI.Repository
 {
     public class AlphaVantageRepository
     {
+        private static IConfiguration config = new ConfigurationBuilder()
+          .AddJsonFile("appsettings.json", true, true)
+          .Build();
+
         private readonly HttpClient _httpClient;
-        private const string _baseUrl = "https://www.alphavantage.co/query?function=";
         private const string apiKey = "&apikey=Y28C2P9CKJJP6OZ8";
         public AlphaVantageRepository(HttpClient httpClient)
         {
@@ -48,6 +52,7 @@ namespace StockWebAPI.Repository
         }
         private static Uri ApiUriHelper(string apiEndpoint, string symbol)
         {
+            string _baseUrl = config["AlphaAdvantage"];
             Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}{apiKey}");
             return uri;
         }

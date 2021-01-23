@@ -1,4 +1,5 @@
-﻿using StockWebAPI.Models.IEXCloud;
+﻿using Microsoft.Extensions.Configuration;
+using StockWebAPI.Models.IEXCloud;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -8,7 +9,9 @@ namespace StockWebAPI.Repository
 {
     public class IexRepository
     {
-        private static string _baseUrl = "https://cloud.iexapis.com/stable/";
+        private static IConfiguration config = new ConfigurationBuilder()
+          .AddJsonFile("appsettings.json", true, true)
+          .Build();
         private const string token = "pk_4a54de4d315647e0a424c2238d17891d";
         private readonly HttpClient _httpClient;
 
@@ -51,6 +54,7 @@ namespace StockWebAPI.Repository
 
         private static Uri ApiUriHelper(string apiEndpoint, string symbol)
         {
+            string _baseUrl = config["Iex"];
             Uri uri = new Uri($"{_baseUrl}stock/{symbol}/{apiEndpoint}?token={token}");
             return uri;
         }
