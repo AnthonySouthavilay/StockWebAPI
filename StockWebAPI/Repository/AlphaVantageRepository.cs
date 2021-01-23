@@ -10,12 +10,8 @@ namespace StockWebAPI.Repository
 {
     public class AlphaVantageRepository
     {
-        private static IConfiguration config = new ConfigurationBuilder()
-          .AddJsonFile("appsettings.json", true, true)
-          .Build();
-
         private readonly HttpClient _httpClient;
-        private const string apiKey = "&apikey=Y28C2P9CKJJP6OZ8";
+        private const string apiKey = "Y28C2P9CKJJP6OZ8";
         public AlphaVantageRepository(HttpClient httpClient)
         {
             this._httpClient = httpClient;
@@ -52,8 +48,11 @@ namespace StockWebAPI.Repository
         }
         private static Uri ApiUriHelper(string apiEndpoint, string symbol)
         {
+            IConfiguration config = new ConfigurationBuilder()
+              .AddJsonFile("appsettings.json", true, true)
+              .Build();
             string _baseUrl = config["AlphaAdvantage"];
-            Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}{apiKey}");
+            Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
             return uri;
         }
 

@@ -10,10 +10,6 @@ namespace StockWebAPI.Repository
     public class FinnhubRepository
     {
         private readonly HttpClient _httpClient;
-        private static IConfiguration config = new ConfigurationBuilder()
-          .AddJsonFile("appsettings.json", true, true)
-          .Build();
-
         private const string _token = "bvl85tn48v6sqkppa030";
 
         public FinnhubRepository(HttpClient httpClient)
@@ -57,6 +53,9 @@ namespace StockWebAPI.Repository
 
         private static Uri RequestUriHelper(string symbol, string apiEndpoint, DateTime startDate = new (), DateTime endDate = new ())
         {
+            IConfiguration config = new ConfigurationBuilder()
+              .AddJsonFile("appsettings.json", true, true)
+              .Build();
             string _baseUrl = config["FinnHub"];
             DateTime today = DateTime.Today;
             return startDate == DateTime.MinValue || endDate == DateTime.MinValue
