@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using StockWebAPI.Helpers;
+using System;
 
 namespace StockWebAPI.Unit.Tests.Helpers
 {
@@ -22,6 +24,22 @@ namespace StockWebAPI.Unit.Tests.Helpers
         {
             bool result = symbol.IsValid();
             result.Should().BeFalse();
+        }
+        
+        [Test]
+        public void GetBaseUrl_ValidKey_ReturnsBaseUrl()
+        {
+            string apiKey = "Iex";
+            string result = apiKey.GetBaseUrl();
+            result.Should().NotBeNullOrEmpty(); 
+        }
+
+        [Test]
+        public void GetBaseUrl_InvalidKey_ReturnsArgumentException()
+        {
+            string apiKey = "invalid key";
+            Action result = () => apiKey.GetBaseUrl();
+            result.Should().Throw<ArgumentException>();
         }
     }
 }

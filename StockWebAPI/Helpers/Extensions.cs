@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.Text.RegularExpressions;
 
 namespace StockWebAPI.Helpers
 {
@@ -16,6 +18,17 @@ namespace StockWebAPI.Helpers
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Returns a string representing the api's base url.
+        /// </summary>
+        public static string GetBaseUrl(this string apiKey)
+        {
+            IConfiguration config = new ConfigurationBuilder()
+              .AddJsonFile("appsettings.json", true, true)
+              .Build();
+            return config[$"{apiKey}"] ?? throw new ArgumentException("Please provide a valid Api key.");
         }
     }
 }

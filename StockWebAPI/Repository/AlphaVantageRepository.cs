@@ -4,7 +4,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using StockWebAPI.Helpers;
 
 namespace StockWebAPI.Repository
 {
@@ -48,10 +48,8 @@ namespace StockWebAPI.Repository
         }
         private static Uri ApiUriHelper(string apiEndpoint, string symbol)
         {
-            IConfiguration config = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json", true, true)
-              .Build();
-            string _baseUrl = config["AlphaAdvantage"];
+            string apiBaseKey = "AlphaAdvantage";
+            string _baseUrl = apiBaseKey.GetBaseUrl();
             Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
             return uri;
         }

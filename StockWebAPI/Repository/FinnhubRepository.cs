@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using StockWebAPI.Helpers;
 using StockWebAPI.Models.Finnhub;
 using System;
 using System.Net.Http;
@@ -53,10 +53,8 @@ namespace StockWebAPI.Repository
 
         private static Uri RequestUriHelper(string symbol, string apiEndpoint, DateTime startDate = new (), DateTime endDate = new ())
         {
-            IConfiguration config = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json", true, true)
-              .Build();
-            string _baseUrl = config["FinnHub"];
+            string apiBaseKey = "FinnHub";
+            string _baseUrl = apiBaseKey.GetBaseUrl();
             DateTime today = DateTime.Today;
             return startDate == DateTime.MinValue || endDate == DateTime.MinValue
                 ? new Uri($"{_baseUrl}{apiEndpoint}?symbol={symbol}&from={today:yyyy-MM-dd}&to={today:yyyy-MM-dd}&token={_token}")
