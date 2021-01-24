@@ -37,9 +37,9 @@ namespace StockWebAPI.Service
                     }
                     return companyNewsViewModel.ToArray();
                 }
-                catch
+                catch (ApiException ex)
                 {
-                    throw new Exception($"There was an issue retrieving company news.");
+                    throw new ApiException($"There was an issue retrieving company news.", ex);
                 }
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
@@ -60,9 +60,9 @@ namespace StockWebAPI.Service
                     }
                     return companyNewsViewModel.ToArray();
                 }
-                catch
+                catch (ApiException ex)
                 {
-                    throw new Exception($"There was an issue retrieving company news.");
+                    throw new ApiException($"There was an issue retrieving current news.", ex);
                 }
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");

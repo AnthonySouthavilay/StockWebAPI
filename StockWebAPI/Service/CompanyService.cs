@@ -33,7 +33,7 @@ namespace StockWebAPI.Service
                     companyProfile = await _iEXRepository.GetCompanyInfoAsync(symbol);
                     return companyProfileViewModel.ConvertToCompanyProfileViewModel(companyProfile);
                 }
-                catch
+                catch (ApiException)
                 {
                     CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
                     return companyProfileViewModel.ConvertToCompanyProfileViewModel(keyStats);
@@ -52,7 +52,7 @@ namespace StockWebAPI.Service
                     IexQuote iEXQuote = await _iEXRepository.GetQuoteAsync(symbol);
                     return companySummaryViewModel.ConvertToCompanySummaryViewModel(iEXQuote);
                 }
-                catch
+                catch (ApiException)
                 {
                     CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
                     AlphaVantageQuote alphaVantageQuote = await _alphaVantageRepository.GetQuote(symbol);

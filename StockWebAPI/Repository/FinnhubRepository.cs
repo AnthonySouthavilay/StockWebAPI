@@ -30,7 +30,7 @@ namespace StockWebAPI.Repository
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ApiException($"There was an issue retrieving company news with those dates due to: {ex.Message}", ex);
             }
         }
 
@@ -46,7 +46,7 @@ namespace StockWebAPI.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ApiException($"There was an issue retrieving current news due to: {ex.Message}", ex);
             }
         }
 
