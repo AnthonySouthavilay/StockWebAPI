@@ -5,7 +5,7 @@ namespace StockWebAPI.ViewModels
 {
     public class CompanyNewsViewModel
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string Headline { get; set; }
         public string ImageUrl { get; set; }
         public string Source { get; set; }
@@ -24,12 +24,12 @@ namespace StockWebAPI.ViewModels
             };
         }
 
-        private static DateTime UnixTimestampToDateTime(double unixTime)
+        private static string UnixTimestampToDateTime(double unixTime)
         {
             DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             long unixTimeStampInTicks = (long)(unixTime * TimeSpan.TicksPerSecond);
-            String shortDateTime = new DateTime(unixStart.Ticks + unixTimeStampInTicks, System.DateTimeKind.Utc).ToShortDateString();
-            return Convert.ToDateTime(shortDateTime);
+            string shortDateTime = new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Utc).ToShortDateString();
+            return shortDateTime;
         }
     }
 }

@@ -33,9 +33,9 @@ namespace StockWebAPI.Repository
         public async Task<AlphaVantageQuote> GetQuote(string symbol)
         {
             string apiEndpoint = "GLOBAL_QUOTE";
-            Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
             try
             {
+                Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
                 string jsonString = await _httpClient.GetStringAsync(requestUri);
                 AlphaVantageGlobalQuote globalQuote = JsonConvert.DeserializeObject<AlphaVantageGlobalQuote>(jsonString);
                 return globalQuote.GlobalQuote;

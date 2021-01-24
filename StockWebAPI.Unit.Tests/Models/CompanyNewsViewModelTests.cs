@@ -30,7 +30,7 @@ namespace StockWebAPI.Unit.Tests.Models
             {
                 datetime = 1588333261
             };
-            DateTime expectedDateTime = new DateTime(2020, 5, 1);
+            string expectedDateTime = "5/1/2020";
             CompanyNewsViewModel result = companyNewsViewModel.ConvertToCompanyNewsViewModel(companyNews);
             result.Date.Should().Be(expectedDateTime);
         }

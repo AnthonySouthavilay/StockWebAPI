@@ -36,9 +36,9 @@ namespace StockWebAPI.Repository
         {
             IexQuote quote;
             string apiEndPoint = "quote";
-            Uri requestUri = ApiUriHelper(apiEndPoint, symbol);
             try
             {
+                Uri requestUri = ApiUriHelper(apiEndPoint, symbol);
                 quote = await _httpClient.GetFromJsonAsync<IexQuote>(requestUri);
                 return quote;
             }

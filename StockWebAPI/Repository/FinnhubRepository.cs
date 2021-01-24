@@ -38,10 +38,9 @@ namespace StockWebAPI.Repository
         {
             CompanyNews[] companyNews;
             string apiEndpoint = "company-news";
-            Uri _requestUri;
             try
             {
-                _requestUri = RequestUriHelper(symbol, apiEndpoint);
+                Uri _requestUri = RequestUriHelper(symbol, apiEndpoint);
                 companyNews = await _httpClient.GetFromJsonAsync<CompanyNews[]>(_requestUri);
                 return companyNews;
             }
