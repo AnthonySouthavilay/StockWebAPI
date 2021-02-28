@@ -1,6 +1,6 @@
 ﻿namespace StockWebAPI.Models.Finnhub
 {
-    public class CompanyNews
+    public class FinnhubCompanyNews
     {
         public string category { get; set; }
         public int datetime { get; set; }
