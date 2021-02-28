@@ -25,9 +25,9 @@ namespace StockWebAPI.Repository
             {
                 return await _httpClient.GetFromJsonAsync<CompanyKeyStats>(requestUri);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Unknown symbol");
+                throw new ApiException($"There was an issue retrieving company key information due to: {ex.Message}", ex);
             }
         }
         public async Task<AlphaVantageQuote> GetQuote(string symbol)
@@ -40,9 +40,9 @@ namespace StockWebAPI.Repository
                 AlphaVantageGlobalQuote globalQuote = JsonConvert.DeserializeObject<AlphaVantageGlobalQuote>(jsonString);
                 return globalQuote.GlobalQuote;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Unknown symbol");
+                throw new ApiException($"There was an issue retrieving quote information due to: {ex.Message}", ex);
             }
 
         }

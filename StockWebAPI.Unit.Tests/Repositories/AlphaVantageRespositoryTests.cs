@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
+using StockWebAPI.Helpers;
 using StockWebAPI.Models.AlphaVantage;
 using StockWebAPI.Repository;
 using StockWebAPI.Unit.Tests.TestHelpers;
@@ -51,7 +52,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
         }
 
         [Test]
-        public Task GetKeyInformation_UnknownSymbol_ThrowsExceptionWithMessage()
+        public Task GetKeyInformation_UnknownSymbol_ThrowsApiException()
         {
             string testUnknownSymbol = "G00G";
             string mockResponse = "Unknown symbol";
@@ -59,7 +60,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _httpClient = new HttpClient(_mockMessageHandler);
             _alphaVantageRepo = new AlphaVantageRepository(_httpClient);
             Func<Task> result = async () => { await _alphaVantageRepo.GetKeyInformationAsync(testUnknownSymbol); };
-            result.Should().Throw<Exception>().WithMessage("Unknown symbol");
+            result.Should().Throw<ApiException>();
             return Task.CompletedTask;
         }
 
@@ -80,7 +81,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
         }
 
         [Test]
-        public Task GetQuote_InvalidSymbol_ThrowsException()
+        public Task GetQuote_InvalidSymbol_ThrowsApiException()
         {
             string testUnknownSymbol = "G00G";
             string mockResponse = "Unknown symbol";
@@ -88,7 +89,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _httpClient = new HttpClient(_mockMessageHandler);
             _alphaVantageRepo = new AlphaVantageRepository(_httpClient);
             Func<Task> result = async () => { await _alphaVantageRepo.GetQuote(testUnknownSymbol); };
-            result.Should().Throw<Exception>().WithMessage("Unknown symbol");
+            result.Should().Throw<ApiException>();
             return Task.CompletedTask;
         }
     }

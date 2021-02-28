@@ -8,6 +8,7 @@ using StockWebAPI.Unit.Tests.TestHelpers;
 using System.Net;
 using FluentAssertions.Execution;
 using StockWebAPI.Models.IEXCloud;
+using StockWebAPI.Helpers;
 
 namespace StockWebAPI.Unit.Tests.Repositories
 {
@@ -38,7 +39,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
         }
 
         [Test]
-        public Task GetCompanyInformation_UnknownSymbol_ThrowsExceptionWithMessage()
+        public Task GetCompanyInformation_UnknownSymbol_ThrowsApiException()
         {
             string testUnknownSymbol = "G00G";
             string mockResponse = "Unknown symbol";
@@ -46,7 +47,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _httpClient = new HttpClient(_mockMessageHandler);
             _iexRepo = new IexRepository(_httpClient);
             Func<Task> result = async () => { await _iexRepo.GetCompanyInfoAsync(testUnknownSymbol); };
-            result.Should().Throw<Exception>().WithMessage("Unknown symbol");
+            result.Should().Throw<ApiException>();
             return Task.CompletedTask;
         }
 

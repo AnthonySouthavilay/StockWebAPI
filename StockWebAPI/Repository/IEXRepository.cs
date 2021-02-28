@@ -26,9 +26,9 @@ namespace StockWebAPI.Repository
                 profile = await _httpClient.GetFromJsonAsync<CompanyProfile>(requestUri);
                 return profile;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                throw new Exception("Unknown symbol");
+                throw new ApiException($"There was an issue retrieving company information due to: {ex.Message}", ex);
             }
         }
 
@@ -44,7 +44,7 @@ namespace StockWebAPI.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ApiException($"There was an issue retrieving quote information due to: {ex.Message}", ex);
             }
 
         }
