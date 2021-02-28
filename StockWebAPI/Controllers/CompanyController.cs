@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StockWebAPI.Service;
 using StockWebAPI.ViewModels;
 using System.Net.Http;
@@ -10,7 +9,6 @@ namespace StockWebAPI.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private CompanyService _companyService;
         private readonly HttpClient _httpClient;
 
         public CompanyController()
@@ -22,7 +20,7 @@ namespace StockWebAPI.Controllers
         [Route("{companySymbol}/CompanySummary")]
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string companySymbol)
         {
-            _companyService = new CompanyService(_httpClient);
+            var _companyService = new CompanyService(_httpClient);
             return await _companyService.GetCompanySummaryAsync(companySymbol);
         }
 
@@ -30,8 +28,24 @@ namespace StockWebAPI.Controllers
         [Route("{companySymbol}/CompanyProfile")]
         public async Task<CompanyProfileViewModel> GetCompanyProfileAsync(string companySymbol)
         {
-            _companyService = new CompanyService(_httpClient);
+            var _companyService = new CompanyService(_httpClient);
             return await _companyService.GetCompanyProfileAsync(companySymbol);
+        }
+
+        [HttpGet]
+        [Route("{companySymbol}/CurrentNews")]
+        public async Task<CompanyNewsViewModel[]> GetCurrentCompanyNewsAsync(string companySymbol)
+        {
+            var _newsService = new NewsService(_httpClient);
+            return await _newsService.GetCompanyNewsAsync(companySymbol);
+        }
+
+        [HttpGet]
+        [Route("{companySymbol}/News/{startDate}/{endDate}")]
+        public async Task<CompanyNewsViewModel[]> GetCompanyNewsAsync(string companySymbol, string startDate, string endDate)
+        {
+            var _newsService = new NewsService(_httpClient);
+            return await _newsService.GetCompanyNewsAsync(companySymbol, startDate, endDate);
         }
     }
 }

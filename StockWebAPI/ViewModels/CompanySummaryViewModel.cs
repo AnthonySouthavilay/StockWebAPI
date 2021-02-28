@@ -32,7 +32,7 @@ namespace StockWebAPI.ViewModels
         public string PERatio { get; set; }
         public string EPS { get; set; }
         public double? DividendYield { get; set; }
-        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(IEXQuote quote)
+        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(IexQuote quote)
         {
             return new CompanySummaryViewModel()
             {

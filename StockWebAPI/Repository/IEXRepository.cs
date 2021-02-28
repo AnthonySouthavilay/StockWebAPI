@@ -1,4 +1,5 @@
-﻿using StockWebAPI.Models.IEXCloud;
+﻿using StockWebAPI.Helpers;
+using StockWebAPI.Models.IEXCloud;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -6,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace StockWebAPI.Repository
 {
-    public class IEXRepository
+    public class IexRepository
     {
-        private static string _baseUrl = "https://cloud.iexapis.com/stable/";
         private const string token = "pk_4a54de4d315647e0a424c2238d17891d";
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
-        public IEXRepository(HttpClient httpClient)
+        public IexRepository(HttpClient httpClient)
         {
             this._httpClient = httpClient;
         }
@@ -26,32 +26,34 @@ namespace StockWebAPI.Repository
                 profile = await _httpClient.GetFromJsonAsync<CompanyProfile>(requestUri);
                 return profile;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                throw new Exception("Unknown symbol");
+                throw new ApiException($"There was an issue retrieving company information due to: {ex.Message}", ex);
             }
         }
 
-        public async Task<IEXQuote> GetQuoteAsync(string symbol)
+        public async Task<IexQuote> GetQuoteAsync(string symbol)
         {
-            IEXQuote quote;
+            IexQuote quote;
             string apiEndPoint = "quote";
-            Uri requestUri = ApiUriHelper(apiEndPoint, symbol);
             try
             {
-                quote = await _httpClient.GetFromJsonAsync<IEXQuote>(requestUri);
+                Uri requestUri = ApiUriHelper(apiEndPoint, symbol);
+                quote = await _httpClient.GetFromJsonAsync<IexQuote>(requestUri);
                 return quote;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ApiException($"There was an issue retrieving quote information due to: {ex.Message}", ex);
             }
 
         }
 
         private static Uri ApiUriHelper(string apiEndpoint, string symbol)
         {
-            Uri uri = new Uri($"{_baseUrl}stock/{symbol}/{apiEndpoint}?token={token}");
+            string apiBaseKey = "Iex";
+            string baseUrl = apiBaseKey.GetBaseUrl();
+            Uri uri = new Uri($"{baseUrl}stock/{symbol}/{apiEndpoint}?token={token}");
             return uri;
         }
     }

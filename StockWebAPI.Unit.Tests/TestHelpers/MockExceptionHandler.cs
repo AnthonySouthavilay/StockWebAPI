@@ -7,7 +7,7 @@ namespace StockWebAPI.Unit.Tests.TestHelpers
 {
     public class MockExceptionHandler : HttpMessageHandler
     {
-        private Exception mockException;
+        private readonly Exception mockException;
         public MockExceptionHandler(Exception exception)
         {
             this.mockException = exception;
