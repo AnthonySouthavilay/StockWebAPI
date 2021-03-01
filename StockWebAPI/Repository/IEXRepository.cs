@@ -20,7 +20,7 @@ namespace StockWebAPI.Repository
         {
             CompanyProfile profile;
             string apiEndPoint = "company";
-            Uri requestUri = ApiUriHelper(apiEndPoint, stockSymbol);
+            Uri requestUri = RequestUriHelper(apiEndPoint, stockSymbol);
             try
             {
                 profile = await _httpClient.GetFromJsonAsync<CompanyProfile>(requestUri);
@@ -38,7 +38,7 @@ namespace StockWebAPI.Repository
             string apiEndPoint = "quote";
             try
             {
-                Uri requestUri = ApiUriHelper(apiEndPoint, symbol);
+                Uri requestUri = RequestUriHelper(apiEndPoint, symbol);
                 quote = await _httpClient.GetFromJsonAsync<IexQuote>(requestUri);
                 return quote;
             }
@@ -49,7 +49,7 @@ namespace StockWebAPI.Repository
 
         }
 
-        private static Uri ApiUriHelper(string apiEndpoint, string symbol)
+        private static Uri RequestUriHelper(string apiEndpoint, string symbol)
         {
             string apiBaseKey = "Iex";
             string baseUrl = apiBaseKey.GetBaseUrl();
