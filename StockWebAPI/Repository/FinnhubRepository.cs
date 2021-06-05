@@ -10,7 +10,7 @@ namespace StockWebAPI.Repository
     public class FinnhubRepository
     {
         private readonly HttpClient _httpClient;
-        private const string _token = "bvl85tn48v6sqkppa030";
+        private const string _token = "";
 
         public FinnhubRepository(HttpClient httpClient)
         {

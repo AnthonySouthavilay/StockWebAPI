@@ -12,7 +12,7 @@ namespace StockWebAPI.Repository
 {
     public class GNewsRepository
     {
-        private const string token = "b9f2a63c4a6767e1f59d49d20b16319e";
+        private const string token = "";
         private readonly string defaultEndDate = DateTime.Now.ToString("yyyy-MM-dd");
         private readonly string defaultStartDate = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
         private readonly HttpClient _httpClient;

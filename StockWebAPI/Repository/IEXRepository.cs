@@ -9,7 +9,7 @@ namespace StockWebAPI.Repository
 {
     public class IexRepository
     {
-        private const string token = "pk_4a54de4d315647e0a424c2238d17891d";
+        private const string token = "";
         private readonly HttpClient _httpClient;
 
         public IexRepository(HttpClient httpClient)
