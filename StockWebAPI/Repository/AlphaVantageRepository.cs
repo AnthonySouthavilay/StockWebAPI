@@ -11,7 +11,7 @@ namespace StockWebAPI.Repository
     public class AlphaVantageRepository
     {
         private readonly HttpClient _httpClient;
-        private const string apiKey = "Y28C2P9CKJJP6OZ8";
+        private const string apiKey = "";
         public AlphaVantageRepository(HttpClient httpClient)
         {
             this._httpClient = httpClient;

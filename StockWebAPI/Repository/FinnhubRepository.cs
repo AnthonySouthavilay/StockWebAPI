@@ -10,22 +10,22 @@ namespace StockWebAPI.Repository
     public class FinnhubRepository
     {
         private readonly HttpClient _httpClient;
-        private const string _token = "bvl85tn48v6sqkppa030";
+        private const string _token = "";
 
         public FinnhubRepository(HttpClient httpClient)
         {
             this._httpClient = httpClient;
         }
 
-        public async Task<CompanyNews[]> GetCompanyNewsAsync(string symbol, DateTime startDate, DateTime endDate)
+        public async Task<FinnhubCompanyNews[]> GetCompanyNewsAsync(string symbol, DateTime startDate, DateTime endDate)
         {
-            CompanyNews[] companyNews;
+            FinnhubCompanyNews[] companyNews;
             string apiEndpoint = "company-news";
             Uri _requestUri;
             try
             {
                 _requestUri = RequestUriHelper(symbol, apiEndpoint, startDate, endDate);
-                companyNews = await _httpClient.GetFromJsonAsync<CompanyNews[]>(_requestUri);
+                companyNews = await _httpClient.GetFromJsonAsync<FinnhubCompanyNews[]>(_requestUri);
                 return companyNews;
             }
             catch(Exception ex)
@@ -34,14 +34,14 @@ namespace StockWebAPI.Repository
             }
         }
 
-        public async Task<CompanyNews[]> GetCompanyNewsAsync(string symbol)
+        public async Task<FinnhubCompanyNews[]> GetCompanyNewsAsync(string symbol)
         {
-            CompanyNews[] companyNews;
+            FinnhubCompanyNews[] companyNews;
             string apiEndpoint = "company-news";
             try
             {
                 Uri _requestUri = RequestUriHelper(symbol, apiEndpoint);
-                companyNews = await _httpClient.GetFromJsonAsync<CompanyNews[]>(_requestUri);
+                companyNews = await _httpClient.GetFromJsonAsync<FinnhubCompanyNews[]>(_requestUri);
                 return companyNews;
             }
             catch (Exception ex)

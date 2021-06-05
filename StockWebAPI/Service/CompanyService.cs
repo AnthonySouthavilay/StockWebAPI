@@ -35,8 +35,7 @@ namespace StockWebAPI.Service
                 }
                 catch (ApiException)
                 {
-                    CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
-                    return companyProfileViewModel.ConvertToCompanyProfileViewModel(keyStats);
+                    return await CompanyProfileApiBackupAsync(symbol);
                 }
 
             }
@@ -54,12 +53,39 @@ namespace StockWebAPI.Service
                 }
                 catch (ApiException)
                 {
-                    CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
-                    AlphaVantageQuote alphaVantageQuote = await _alphaVantageRepository.GetQuote(symbol);
-                    return companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats, alphaVantageQuote);
+                    return await CompanySummaryApiBackupAsync(symbol);
                 }
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
+        }
+
+        private async Task<CompanyProfileViewModel> CompanyProfileApiBackupAsync(string symbol)
+        {
+            CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
+            try
+            {
+                CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
+                return companyProfileViewModel.ConvertToCompanyProfileViewModel(keyStats);
+            }
+            catch (ApiException ex)
+            {
+                throw new ApiException($"There was an issue retrieving company profile.", ex);
+            }
+        }
+
+        private async Task<CompanySummaryViewModel> CompanySummaryApiBackupAsync(string symbol)
+        {
+            CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
+            try
+            {
+                CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
+                AlphaVantageQuote alphaVantageQuote = await _alphaVantageRepository.GetQuote(symbol);
+                return companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats, alphaVantageQuote);
+            }
+            catch (ApiException ex)
+            {
+                throw new ApiException($"There was an issue retrieving company summary.", ex);
+            }
         }
     }
 }

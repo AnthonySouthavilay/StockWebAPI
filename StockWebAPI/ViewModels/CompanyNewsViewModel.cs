@@ -1,4 +1,5 @@
 ﻿using StockWebAPI.Models.Finnhub;
+using StockWebAPI.Models.GNews;
 using System;
 
 namespace StockWebAPI.ViewModels
@@ -11,7 +12,7 @@ namespace StockWebAPI.ViewModels
         public string Source { get; set; }
         public string Summary { get; set; }
         public string ArticleUrl { get; set; }
-        public CompanyNewsViewModel ConvertToCompanyNewsViewModel(CompanyNews companyNews)
+        public CompanyNewsViewModel ConvertToCompanyNewsViewModel(FinnhubCompanyNews companyNews)
         {
             return new CompanyNewsViewModel()
             {
@@ -26,10 +27,24 @@ namespace StockWebAPI.ViewModels
 
         private static string UnixTimestampToDateTime(double unixTime)
         {
-            DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             long unixTimeStampInTicks = (long)(unixTime * TimeSpan.TicksPerSecond);
             string shortDateTime = new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Utc).ToShortDateString();
             return shortDateTime;
+        }
+
+        public CompanyNewsViewModel ConvertToCompanyNewsViewModel(GNewsCompanyNews.Article article)
+        {
+            CompanyNewsViewModel companyNewsViewModel = new CompanyNewsViewModel()
+            {
+                Date = article.publishedAt.ToShortDateString(),
+                Headline = article.title,
+                ImageUrl = article.image,
+                Source = article.source.name,
+                Summary = article.description,
+                ArticleUrl = article.url
+            };
+            return companyNewsViewModel;
         }
     }
 }

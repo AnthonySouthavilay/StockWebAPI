@@ -24,14 +24,14 @@ namespace StockWebAPI.Service
             DateTime startDate = DateTime.Parse(requestedStartDate);
             DateTime endDate = DateTime.Parse(requestedEndDate);
 
-            CompanyNews[] companyNews;
+            FinnhubCompanyNews[] companyNews;
             List<CompanyNewsViewModel> companyNewsViewModel = new List<CompanyNewsViewModel>();
             if (symbol.IsValid())
             {
                 try
                 {
                     companyNews = await _finnhubRepo.GetCompanyNewsAsync(symbol, startDate, endDate);
-                    foreach (CompanyNews news in companyNews)
+                    foreach (FinnhubCompanyNews news in companyNews)
                     {
                         companyNewsViewModel.Add(new CompanyNewsViewModel().ConvertToCompanyNewsViewModel(news));
                     }
@@ -47,14 +47,14 @@ namespace StockWebAPI.Service
 
         public async Task<CompanyNewsViewModel[]> GetCompanyNewsAsync(string symbol)
         {
-            CompanyNews[] companyNews;
+            FinnhubCompanyNews[] companyNews;
             List<CompanyNewsViewModel> companyNewsViewModel = new List<CompanyNewsViewModel>();
             if (symbol.IsValid())
             {
                 try
                 {
                     companyNews = await _finnhubRepo.GetCompanyNewsAsync(symbol);
-                    foreach (CompanyNews news in companyNews)
+                    foreach (FinnhubCompanyNews news in companyNews)
                     {
                         companyNewsViewModel.Add(new CompanyNewsViewModel().ConvertToCompanyNewsViewModel(news));
                     }

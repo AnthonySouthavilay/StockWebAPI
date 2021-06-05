@@ -26,7 +26,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.OK);
             _httpClient = new HttpClient(_mockMessageHandler);
             _finnhubRepo = new FinnhubRepository(_httpClient);
-            CompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol, new DateTime(), new DateTime());
+            FinnhubCompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol, new DateTime(), new DateTime());
             result.Should().NotBeNull();
         }
 
@@ -56,7 +56,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.OK);
             _httpClient = new HttpClient(_mockMessageHandler);
             _finnhubRepo = new FinnhubRepository(_httpClient);
-            CompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol, startDate, endDate);
+            FinnhubCompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol, startDate, endDate);
             using (new AssertionScope())
             {
                 UnixTimestampToDateTime(result[0].datetime).Should().Be(1.May(2020));
@@ -77,7 +77,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.OK);
             _httpClient = new HttpClient(_mockMessageHandler);
             _finnhubRepo = new FinnhubRepository(_httpClient);
-            CompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol);
+            FinnhubCompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol);
             using (new AssertionScope())
             {
                 UnixTimestampToDateTime(result[0].datetime).Should().Be(currentDate);
