@@ -31,21 +31,5 @@ namespace StockWebAPI.Controllers
             var _companyService = new CompanyService(_httpClient);
             return await _companyService.GetCompanyProfileAsync(companySymbol);
         }
-
-        [HttpGet]
-        [Route("{companySymbol}/CurrentNews")]
-        public async Task<CompanyNewsViewModel[]> GetCurrentCompanyNewsAsync(string companySymbol)
-        {
-            var _newsService = new NewsService(_httpClient);
-            return await _newsService.GetCompanyNewsAsync(companySymbol);
-        }
-
-        [HttpGet]
-        [Route("{companySymbol}/News/{startDate}/{endDate}")]
-        public async Task<CompanyNewsViewModel[]> GetCompanyNewsAsync(string companySymbol, string startDate, string endDate)
-        {
-            var _newsService = new NewsService(_httpClient);
-            return await _newsService.GetCompanyNewsAsync(companySymbol, startDate, endDate);
-        }
     }
 }

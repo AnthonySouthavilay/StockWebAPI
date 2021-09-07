@@ -77,7 +77,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.OK);
             _httpClient = new HttpClient(_mockMessageHandler);
             _finnhubRepo = new FinnhubRepository(_httpClient);
-            FinnhubCompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol);
+            FinnhubCompanyNews[] result = await _finnhubRepo.GetCurrentCompanyNews(symbol);
             using (new AssertionScope())
             {
                 UnixTimestampToDateTime(result[0].datetime).Should().Be(currentDate);
@@ -93,7 +93,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.NotFound);
             _httpClient = new HttpClient(_mockMessageHandler);
             _finnhubRepo = new FinnhubRepository(_httpClient);
-            Func<Task> act = async () => await Task.Run(() => _finnhubRepo.GetCompanyNewsAsync(symbol));
+            Func<Task> act = async () => await Task.Run(() => _finnhubRepo.GetCurrentCompanyNews(symbol));
             act.Should().Throw<Exception>();
         }
         private static DateTime UnixTimestampToDateTime(double unixTime)

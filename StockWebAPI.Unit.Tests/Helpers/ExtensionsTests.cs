@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using StockWebAPI.Helpers;
 using System;

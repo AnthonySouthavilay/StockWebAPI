@@ -6,6 +6,7 @@ using StockWebAPI.Models.Finnhub;
 using StockWebAPI.Repository;
 using System.Collections.Generic;
 using StockWebAPI.Helpers;
+using System.Globalization;
 
 namespace StockWebAPI.Service
 {
@@ -19,10 +20,10 @@ namespace StockWebAPI.Service
             this._finnhubRepo = new FinnhubRepository(_httpClient);
         }
 
-        public async Task<CompanyNewsViewModel[]> GetCompanyNewsAsync(string symbol, string requestedStartDate, string requestedEndDate)
+        public async Task<CompanyNewsViewModel[]> GetCompanyNewsByDateRangeAsync(string symbol, string requestedStartDate, string requestedEndDate)
         {
-            DateTime startDate = DateTime.Parse(requestedStartDate);
-            DateTime endDate = DateTime.Parse(requestedEndDate);
+            DateTime startDate = DateTime.Parse(CheckForEncodedForwardSlash(requestedStartDate));
+            DateTime endDate = DateTime.Parse(CheckForEncodedForwardSlash(requestedEndDate));
 
             FinnhubCompanyNews[] companyNews;
             List<CompanyNewsViewModel> companyNewsViewModel = new List<CompanyNewsViewModel>();
@@ -45,7 +46,7 @@ namespace StockWebAPI.Service
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }
 
-        public async Task<CompanyNewsViewModel[]> GetCompanyNewsAsync(string symbol)
+        public async Task<CompanyNewsViewModel[]> GetCurrentCompanyNewsAsync(string symbol)
         {
             FinnhubCompanyNews[] companyNews;
             List<CompanyNewsViewModel> companyNewsViewModel = new List<CompanyNewsViewModel>();
@@ -53,7 +54,7 @@ namespace StockWebAPI.Service
             {
                 try
                 {
-                    companyNews = await _finnhubRepo.GetCompanyNewsAsync(symbol);
+                    companyNews = await _finnhubRepo.GetCurrentCompanyNews(symbol);
                     foreach (FinnhubCompanyNews news in companyNews)
                     {
                         companyNewsViewModel.Add(new CompanyNewsViewModel().ConvertToCompanyNewsViewModel(news));
@@ -67,11 +68,9 @@ namespace StockWebAPI.Service
             }
             throw new ArgumentException($"{symbol} is not a valid stock symbol");
         }
-
-        //Finnhub - Market News - General
-
-        //Finnhub - Market News - Crypto
-
-        //
+        private static string CheckForEncodedForwardSlash(string inputString)
+        {
+            return inputString.Contains("%2F") ? inputString.Replace("%2F", "/") : inputString;
+        }
     }
 }
