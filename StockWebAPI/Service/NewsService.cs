@@ -6,7 +6,6 @@ using StockWebAPI.Models.Finnhub;
 using StockWebAPI.Repository;
 using System.Collections.Generic;
 using StockWebAPI.Helpers;
-using System.Globalization;
 
 namespace StockWebAPI.Service
 {
