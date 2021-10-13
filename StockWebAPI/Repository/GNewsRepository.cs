@@ -29,7 +29,7 @@ namespace StockWebAPI.Repository
             try
             {
                 GNewsCompanyNews.GNewsModel newsModel = await _httpClient.GetFromJsonAsync<GNewsCompanyNews.GNewsModel>(requestUri);
-                return newsModel.articles;
+                return newsModel.Articles;
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace StockWebAPI.Repository
             try
             {
                 GNewsCompanyNews.GNewsModel newsModel = await _httpClient.GetFromJsonAsync<GNewsCompanyNews.GNewsModel>(requestUri);
-                return newsModel.articles;
+                return newsModel.Articles;
             }
             catch(Exception ex)
             {

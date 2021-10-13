@@ -16,12 +16,12 @@ namespace StockWebAPI.ViewModels
         {
             return new CompanyNewsViewModel()
             {
-                Date = UnixTimestampToDateTime(companyNews.datetime),
-                Headline = companyNews.headline,
-                ImageUrl = companyNews.image,
-                Source = companyNews.source,
-                Summary = companyNews.summary,
-                ArticleUrl = companyNews.url
+                Date = UnixTimestampToDateTime(companyNews.Datetime),
+                Headline = companyNews.Headline,
+                ImageUrl = companyNews.Image,
+                Source = companyNews.Source,
+                Summary = companyNews.Summary,
+                ArticleUrl = companyNews.Url
             };
         }
 
@@ -37,12 +37,12 @@ namespace StockWebAPI.ViewModels
         {
             CompanyNewsViewModel companyNewsViewModel = new CompanyNewsViewModel()
             {
-                Date = article.publishedAt.ToShortDateString(),
-                Headline = article.title,
-                ImageUrl = article.image,
-                Source = article.source.name,
-                Summary = article.description,
-                ArticleUrl = article.url
+                Date = article.PublishedAt.ToShortDateString(),
+                Headline = article.Title,
+                ImageUrl = article.Image,
+                Source = article.Source.Name,
+                Summary = article.Description,
+                ArticleUrl = article.Url
             };
             return companyNewsViewModel;
         }

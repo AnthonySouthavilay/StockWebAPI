@@ -14,23 +14,23 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanyProfileViewModel_CompanyProfile_ReturnsCompanyProfileViewModel()
         {
-            CompanyProfile mockCompanyProfile = new CompanyProfile()
+            IEXCompanyProfile mockCompanyProfile = new IEXCompanyProfile()
             {
-                companyName = "Tank Southy LLC",
-                symbol = "TANK",
-                description = "This is da best company.",
-                website = "https://www.TankSouthy.com",
-                employees = 1,
-                sector = "Pets",
-                industry = "Pets?",
-                exchange = "NYSE",
-                zip = "12345"
+                CompanyName = "Tank Southy LLC",
+                Symbol = "TANK",
+                Description = "This is da best company.",
+                Website = "https://www.TankSouthy.com",
+                Employees = 1,
+                Sector = "Pets",
+                Industry = "Pets?",
+                Exchange = "NYSE",
+                Zip = "12345"
             };
             var result = _companyProfileViewModel.ConvertToCompanyProfileViewModel(mockCompanyProfile);
             using (new AssertionScope())
             {
-                result.Symbol.Should().Be(mockCompanyProfile.symbol);
-                result.Address.ZipCode.Should().Be(mockCompanyProfile.zip);
+                result.Symbol.Should().Be(mockCompanyProfile.Symbol);
+                result.Address.ZipCode.Should().Be(mockCompanyProfile.Zip);
                 result.Should().NotBeNull();
             }
         }
@@ -38,7 +38,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanyProfileViewModel_CompanyKeyStats_ReturnsCompanyProfileViewModel()
         {
-            CompanyKeyStats companyKeyStats = new CompanyKeyStats()
+            AlphaVantageCompanyKeyStats companyKeyStats = new AlphaVantageCompanyKeyStats()
             {
                 Name = "Tank Southy LLP",
                 Symbol = "BONE",
@@ -56,7 +56,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanyProfileViewModel_CompanyKeyStatsAddress_ReturnsViewModelAddress()
         {
-            CompanyKeyStats companyKeyStats = new CompanyKeyStats()
+            AlphaVantageCompanyKeyStats companyKeyStats = new AlphaVantageCompanyKeyStats()
             {
                 Address = "One Apple Park Way, Cupertino, CA, United States, 95014",
                 FullTimeEmployees = "2"
