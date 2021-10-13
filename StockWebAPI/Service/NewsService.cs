@@ -25,7 +25,7 @@ namespace StockWebAPI.Service
             DateTime endDate = DateTime.Parse(CheckForEncodedForwardSlash(requestedEndDate));
 
             FinnhubCompanyNews[] companyNews;
-            List<CompanyNewsViewModel> companyNewsViewModel = new List<CompanyNewsViewModel>();
+            List<CompanyNewsViewModel> companyNewsViewModel = new();
             if (symbol.IsValid())
             {
                 try
@@ -48,7 +48,7 @@ namespace StockWebAPI.Service
         public async Task<CompanyNewsViewModel[]> GetCurrentCompanyNewsAsync(string symbol)
         {
             FinnhubCompanyNews[] companyNews;
-            List<CompanyNewsViewModel> companyNewsViewModel = new List<CompanyNewsViewModel>();
+            List<CompanyNewsViewModel> companyNewsViewModel = new();
             if (symbol.IsValid())
             {
                 try

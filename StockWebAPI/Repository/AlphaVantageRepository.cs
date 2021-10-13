@@ -17,13 +17,13 @@ namespace StockWebAPI.Repository
             this._httpClient = httpClient;
         }
 
-        public async Task<CompanyKeyStats> GetKeyInformationAsync(string symbol)
+        public async Task<AlphaVantageCompanyKeyStats> GetKeyInformationAsync(string symbol)
         {
             string apiEndpoint = "OVERVIEW";
             Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
             try
             {
-                return await _httpClient.GetFromJsonAsync<CompanyKeyStats>(requestUri);
+                return await _httpClient.GetFromJsonAsync<AlphaVantageCompanyKeyStats>(requestUri);
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace StockWebAPI.Repository
         {
             string apiBaseKey = "AlphaAdvantage";
             string _baseUrl = apiBaseKey.GetBaseUrl();
-            Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
+            Uri uri = new($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
             return uri;
         }
 
