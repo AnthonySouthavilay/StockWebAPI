@@ -15,9 +15,9 @@ namespace StockWebAPI.Unit.Tests.Models
         {
             FinnhubCompanyNews companyNews = new FinnhubCompanyNews()
             {
-                image = "https://www.TestImage.com",
-                source = "CNNFOX",
-                url = "https://www.FakeArticle.com"
+                Image = "https://www.TestImage.com",
+                Source = "CNNFOX",
+                Url = "https://www.FakeArticle.com"
             };
             CompanyNewsViewModel result = companyNewsViewModel.ConvertToCompanyNewsViewModel(companyNews);
             result.Should().NotBeNull();
@@ -28,7 +28,7 @@ namespace StockWebAPI.Unit.Tests.Models
         {
             FinnhubCompanyNews companyNews = new FinnhubCompanyNews()
             {
-                datetime = 1588333261
+                Datetime = 1588333261
             };
             string expectedDateTime = "5/1/2020";
             CompanyNewsViewModel result = companyNewsViewModel.ConvertToCompanyNewsViewModel(companyNews);
@@ -41,12 +41,12 @@ namespace StockWebAPI.Unit.Tests.Models
             GNewsCompanyNews.Article companyNewsArticle
                 = new GNewsCompanyNews.Article()
             {
-                title = "test article",
-                url = "www.test.com",
-                source = new GNewsCompanyNews.Source()
+                Title = "test article",
+                Url = "www.test.com",
+                Source = new GNewsCompanyNews.Source()
                 {
-                    name = "Test News",
-                    url = "www.testNewsPaper.com"
+                    Name = "Test News",
+                    Url = "www.testNewsPaper.com"
                 }
             };
             CompanyNewsViewModel result = companyNewsViewModel.ConvertToCompanyNewsViewModel(companyNewsArticle);

@@ -36,27 +36,27 @@ namespace StockWebAPI.ViewModels
         {
             return new CompanySummaryViewModel()
             {
-                CompanyName = quote.companyName,
-                Symbol = quote.symbol,
-                Exchange = quote.primaryExchange,
-                PreviousClose = quote.previousClose,
-                OpenPrice = quote.open,
-                Price = quote.latestPrice,
-                Bid = quote.iexBidPrice,
-                Ask = quote.iexAskPrice,
-                HighPrice = quote.high,
-                LowPrice = quote.low,
-                PriceChange = quote.change,
-                PriceChangePercent = quote.changePercent,
-                Week52High = quote.week52High.ToString(),
-                Week52Low = quote.week52Low.ToString(),
-                Volume = quote.volume,
-                AverageVolume = quote.avgTotalVolume,
-                MarketCap = quote.marketCap.ToString(),
-                PERatio = quote.peRatio.ToString()
+                CompanyName = quote.CompanyName,
+                Symbol = quote.Symbol,
+                Exchange = quote.PrimaryExchange,
+                PreviousClose = quote.PreviousClose,
+                OpenPrice = quote.Open,
+                Price = quote.LatestPrice,
+                Bid = quote.IexBidPrice,
+                Ask = quote.IexAskPrice,
+                HighPrice = quote.High,
+                LowPrice = quote.Low,
+                PriceChange = quote.Change,
+                PriceChangePercent = quote.ChangePercent,
+                Week52High = quote.Week52High.ToString(),
+                Week52Low = quote.Week52Low.ToString(),
+                Volume = quote.Volume,
+                AverageVolume = quote.AvgTotalVolume,
+                MarketCap = quote.MarketCap.ToString(),
+                PERatio = quote.PeRatio.ToString()
             };
         }
-        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(CompanyKeyStats keyStats, AlphaVantageQuote alphaVantageQuote)
+        public CompanySummaryViewModel ConvertToCompanySummaryViewModel(AlphaVantageCompanyKeyStats keyStats, AlphaVantageQuote alphaVantageQuote)
         {
             return new CompanySummaryViewModel()
             {

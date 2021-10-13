@@ -16,23 +16,23 @@ namespace StockWebAPI.Unit.Tests.Models
         {
             IexQuote quote = new IexQuote()
             {
-                symbol = "TANK",
-                companyName = "Tank Southy LLC",
-                latestPrice = 101.30,
-                iexBidPrice = (int?)101.00
+                Symbol = "TANK",
+                CompanyName = "Tank Southy LLC",
+                LatestPrice = 101.30,
+                IexBidPrice = (int?)101.00
             };
             CompanySummaryViewModel result = companySummaryViewModel.ConvertToCompanySummaryViewModel(quote);
             using (new AssertionScope())
             {
                 result.Should().NotBeNull();
-                result.Price.Should().Be(quote.latestPrice);
+                result.Price.Should().Be(quote.LatestPrice);
             }
         }
 
         [Test]
         public void ConvertToCompanySummaryViewModel_CompanyKeyStats_ReturnsViewModel()
         {
-            CompanyKeyStats keyStats = new CompanyKeyStats() 
+            AlphaVantageCompanyKeyStats keyStats = new AlphaVantageCompanyKeyStats() 
             {
                 Symbol = "TANK",
                 Name = "Tank Southy LLC",

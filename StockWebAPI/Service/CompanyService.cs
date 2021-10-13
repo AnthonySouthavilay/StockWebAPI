@@ -24,8 +24,8 @@ namespace StockWebAPI.Service
 
         public async Task<CompanyProfileViewModel> GetCompanyProfileAsync(string symbol)
         {
-            CompanyProfile companyProfile;
-            CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
+            IEXCompanyProfile companyProfile;
+            CompanyProfileViewModel companyProfileViewModel = new();
             if (symbol.IsValid())
             {
                 try
@@ -64,7 +64,7 @@ namespace StockWebAPI.Service
             CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
             try
             {
-                CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
+                AlphaVantageCompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
                 return companyProfileViewModel.ConvertToCompanyProfileViewModel(keyStats);
             }
             catch (ApiException ex)
@@ -78,7 +78,7 @@ namespace StockWebAPI.Service
             CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
             try
             {
-                CompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
+                AlphaVantageCompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
                 AlphaVantageQuote alphaVantageQuote = await _alphaVantageRepository.GetQuote(symbol);
                 return companySummaryViewModel.ConvertToCompanySummaryViewModel(keyStats, alphaVantageQuote);
             }

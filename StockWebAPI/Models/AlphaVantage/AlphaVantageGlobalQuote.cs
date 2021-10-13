@@ -27,8 +27,8 @@ namespace StockWebAPI.Models.AlphaVantage
         [JsonProperty("10. change percent")]
         public string ChangePercent 
         { 
-            get { return changePercent; } 
-            set { changePercent = value.Substring(0,value.Length - 1); } 
+            get { return changePercent; }
+            set { changePercent = value.Substring(0, value.Length - 1); }
         } 
     }
 

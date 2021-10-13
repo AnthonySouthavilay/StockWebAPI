@@ -1,6 +1,6 @@
 ﻿namespace StockWebAPI.Models.AlphaVantage
 {
-    public class CompanyKeyStats
+    public class AlphaVantageCompanyKeyStats
     {
         public string Symbol { get; set; }
         public string AssetType { get; set; }

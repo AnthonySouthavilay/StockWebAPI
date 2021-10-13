@@ -29,11 +29,11 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _mockMessageHandler = new MockMessageHandler(mockReturnedCompanyJSONResponse, HttpStatusCode.OK);
             _httpClient = new HttpClient(_mockMessageHandler);
             _iexRepo = new IexRepository(_httpClient);
-            CompanyProfile result = await _iexRepo.GetCompanyInfoAsync(testStockSymbol);
+            IEXCompanyProfile result = await _iexRepo.GetCompanyInfoAsync(testStockSymbol);
             using (new AssertionScope())
             {
-                result.symbol.Should().Be(testStockSymbol);
-                result.employees.Should().Be(132000);
+                result.Symbol.Should().Be(testStockSymbol);
+                result.Employees.Should().Be(132000);
                 result.Should().NotBeNull();
             }
         }
@@ -63,7 +63,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             using (new AssertionScope())
             {
                 result.Should().NotBeNull();
-                result.symbol.Should().Be(symbol);
+                result.Symbol.Should().Be(symbol);
             }
         }
     }

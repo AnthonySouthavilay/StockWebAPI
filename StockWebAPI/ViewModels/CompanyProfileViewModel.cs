@@ -16,29 +16,29 @@ namespace StockWebAPI.ViewModels
         public string Sector { get; set; }
         public string Industry { get; set; }
         public string Exchange { get; set; }
-        public CompanyProfileViewModel ConvertToCompanyProfileViewModel(CompanyProfile companyProfile)
+        public CompanyProfileViewModel ConvertToCompanyProfileViewModel(IEXCompanyProfile companyProfile)
         {
             return new CompanyProfileViewModel()
             {
-                Name = companyProfile.companyName,
-                Symbol = companyProfile.symbol,
-                Description = companyProfile.description,
+                Name = companyProfile.CompanyName,
+                Symbol = companyProfile.Symbol,
+                Description = companyProfile.Description,
                 CEO = companyProfile.CEO,
                 Address = new Address()
                 {
-                    City = companyProfile.city,
-                    StreetAddress = companyProfile.address,
-                    State = companyProfile.state,
-                    ZipCode = companyProfile.zip
+                    City = companyProfile.City,
+                    StreetAddress = companyProfile.Address,
+                    State = companyProfile.State,
+                    ZipCode = companyProfile.Zip
                 },
-                WebsiteUrl = companyProfile.website,
-                NumberOfEmployees = companyProfile.employees,
-                Sector = companyProfile.sector,
-                Industry = companyProfile.industry,
-                Exchange = companyProfile.exchange
+                WebsiteUrl = companyProfile.Website,
+                NumberOfEmployees = companyProfile.Employees,
+                Sector = companyProfile.Sector,
+                Industry = companyProfile.Industry,
+                Exchange = companyProfile.Exchange
             };
         }
-        public CompanyProfileViewModel ConvertToCompanyProfileViewModel(CompanyKeyStats companyKeyStats)
+        public CompanyProfileViewModel ConvertToCompanyProfileViewModel(AlphaVantageCompanyKeyStats companyKeyStats)
         {
             return new CompanyProfileViewModel()
             {
@@ -52,7 +52,7 @@ namespace StockWebAPI.ViewModels
                 Industry = companyKeyStats.Industry
             };
         }
-        private static Address CompanyKeyStatsAddressConverter(CompanyKeyStats companyKeyStats)
+        private static Address CompanyKeyStatsAddressConverter(AlphaVantageCompanyKeyStats companyKeyStats)
         {
             if (string.IsNullOrEmpty(companyKeyStats.Address))
             {

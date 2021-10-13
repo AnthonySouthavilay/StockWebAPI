@@ -43,7 +43,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
             _httpClient = new HttpClient(_mockMessageHandler);
             HttpClient liveHttp = new HttpClient();
             _alphaVantageRepo = new AlphaVantageRepository(liveHttp);
-            CompanyKeyStats result = await _alphaVantageRepo.GetKeyInformationAsync(symbol);
+            AlphaVantageCompanyKeyStats result = await _alphaVantageRepo.GetKeyInformationAsync(symbol);
             using (new AssertionScope())
             {
                 result.Symbol.Should().Be(symbol);

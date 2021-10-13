@@ -59,8 +59,8 @@ namespace StockWebAPI.Unit.Tests.Repositories
             FinnhubCompanyNews[] result = await _finnhubRepo.GetCompanyNewsAsync(symbol, startDate, endDate);
             using (new AssertionScope())
             {
-                UnixTimestampToDateTime(result[0].datetime).Should().Be(1.May(2020));
-                UnixTimestampToDateTime(result[1].datetime).Should().Be(2.May(2020));
+                UnixTimestampToDateTime(result[0].Datetime).Should().Be(1.May(2020));
+                UnixTimestampToDateTime(result[1].Datetime).Should().Be(2.May(2020));
             }
         }
 
@@ -80,8 +80,8 @@ namespace StockWebAPI.Unit.Tests.Repositories
             FinnhubCompanyNews[] result = await _finnhubRepo.GetCurrentCompanyNews(symbol);
             using (new AssertionScope())
             {
-                UnixTimestampToDateTime(result[0].datetime).Should().Be(currentDate);
-                UnixTimestampToDateTime(result[1].datetime).Should().Be(currentDate);
+                UnixTimestampToDateTime(result[0].Datetime).Should().Be(currentDate);
+                UnixTimestampToDateTime(result[1].Datetime).Should().Be(currentDate);
             }
         }
 
