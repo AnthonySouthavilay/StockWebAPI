@@ -16,14 +16,14 @@ namespace StockWebAPI.Repository
         {
             this._httpClient = httpClient;
         }
-        public async Task<CompanyProfile> GetCompanyInfoAsync(string stockSymbol)
+        public async Task<IEXCompanyProfile> GetCompanyInfoAsync(string stockSymbol)
         {
-            CompanyProfile profile;
+            IEXCompanyProfile profile;
             string apiEndPoint = "company";
             Uri requestUri = RequestUriHelper(apiEndPoint, stockSymbol);
             try
             {
-                profile = await _httpClient.GetFromJsonAsync<CompanyProfile>(requestUri);
+                profile = await _httpClient.GetFromJsonAsync<IEXCompanyProfile>(requestUri);
                 return profile;
             }
             catch(Exception ex)

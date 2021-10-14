@@ -96,6 +96,19 @@ namespace StockWebAPI.Unit.Tests.Repositories
             Func<Task> act = async () => await Task.Run(() => _finnhubRepo.GetCurrentCompanyNews(symbol));
             act.Should().Throw<Exception>();
         }
+
+        [Test]
+        public async Task GetRecommendationTrends_ValidSymbol_ReturnsFinnhubRecommendationTrendsAsync()
+        {
+            string symbol = "NEW";
+            string mockResponse = "[{\"buy\":2,\"hold\":1,\"period\":\"2021-06-01\",\"sell\":0,\"strongBuy\":2,\"strongSell\":0,\"symbol\":\"NEW\"},{\"buy\":2,\"hold\":1,\"period\":\"2021-05-01\",\"sell\":0,\"strongBuy\":2,\"strongSell\":0,\"symbol\":\"NEW\"}]";
+            _mockMessageHandler = new MockMessageHandler(mockResponse, HttpStatusCode.OK);
+            _httpClient = new HttpClient(_mockMessageHandler);
+            _finnhubRepo = new FinnhubRepository(_httpClient);
+            FinnhubRecommendationTrends[] result = await _finnhubRepo.GetRecommendationTrendsAsync(symbol);
+            result[0].Symbol.Should().Be(symbol);
+        }
+
         private static DateTime UnixTimestampToDateTime(double unixTime)
         {
             DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
