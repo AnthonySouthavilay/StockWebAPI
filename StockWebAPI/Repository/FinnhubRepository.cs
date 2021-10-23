@@ -1,5 +1,6 @@
 ﻿using StockWebAPI.Helpers;
 using StockWebAPI.Models.Finnhub;
+using StockWebAPI.Unit.Tests.Repositories;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -11,6 +12,8 @@ namespace StockWebAPI.Repository
     {
         private readonly HttpClient _httpClient;
         private const string _token = "";
+        private readonly static string apiBaseKey = "FinnHub";
+        private readonly static string _baseUrl = apiBaseKey.GetBaseUrl();
 
         public FinnhubRepository(HttpClient httpClient)
         {
@@ -24,7 +27,7 @@ namespace StockWebAPI.Repository
             Uri _requestUri;
             try
             {
-                _requestUri = RequestUriHelper(symbol, apiEndpoint, startDate, endDate);
+                _requestUri = DateUriHelper(symbol, apiEndpoint, startDate, endDate);
                 companyNews = await _httpClient.GetFromJsonAsync<FinnhubCompanyNews[]>(_requestUri);
                 return companyNews;
             }
@@ -40,7 +43,7 @@ namespace StockWebAPI.Repository
             string apiEndpoint = "company-news";
             try
             {
-                Uri _requestUri = RequestUriHelper(symbol, apiEndpoint);
+                Uri _requestUri = DateUriHelper(symbol, apiEndpoint);
                 companyNews = await _httpClient.GetFromJsonAsync<FinnhubCompanyNews[]>(_requestUri);
                 return companyNews;
             }
@@ -50,25 +53,28 @@ namespace StockWebAPI.Repository
             }
         }
 
-        private static Uri RequestUriHelper(string symbol, string apiEndpoint, DateTime startDate = new(), DateTime endDate = new ())
+        public async Task<FinnhubRecommendationTrends[]> GetRecommendationTrendsAsync(string symbol)
         {
-            string apiBaseKey = "FinnHub";
-            string _baseUrl = apiBaseKey.GetBaseUrl();
+            FinnhubRecommendationTrends[] recommendation;
+            string apiEndpoint = "recommendation";
+            try
+            {
+                Uri _requestUri = new($"{_baseUrl}stock/{apiEndpoint}?symbol={symbol}&token={_token}");
+                recommendation = await _httpClient.GetFromJsonAsync<FinnhubRecommendationTrends[]>(_requestUri);
+                return recommendation;
+            }
+            catch(Exception ex)
+            {
+                throw new ApiException($"There was an issue retrieving recommendation trends due to: {ex.Message}", ex);
+            }
+        }
+
+        private static Uri DateUriHelper(string symbol, string apiEndpoint, DateTime startDate = new(), DateTime endDate = new())
+        {
             DateTime today = DateTime.Today;
             return startDate == DateTime.MinValue || endDate == DateTime.MinValue
                 ? new Uri($"{_baseUrl}{apiEndpoint}?symbol={symbol}&from={today:yyyy-MM-dd}&to={today:yyyy-MM-dd}&token={_token}")
                 : new Uri($"{_baseUrl}{apiEndpoint}?symbol={symbol}&from={startDate:yyyy-MM-dd}&to={endDate:yyyy-MM-dd}&token={_token}");
         }
-
-        //private static Uri RequestUriHelper(string symbol, string apiEndpoint, DateTime startDate = new(), DateTime endDate = new ())
-        //{
-        //    string apiBaseKey = "FinnHub";
-        //    string _baseUrl = apiBaseKey.GetBaseUrl();
-        //    DateTime today = DateTime.Today;
-        //    return startDate == DateTime.MinValue || endDate == DateTime.MinValue
-        //        ? new Uri($"{_baseUrl}{apiEndpoint}?symbol={symbol}&from={today:yyyy-MM-dd}&to={today:yyyy-MM-dd}&token={_token}")
-        //        : new Uri($"{_baseUrl}{apiEndpoint}?symbol={symbol}&from={startDate:yyyy-MM-dd}&to={endDate:yyyy-MM-dd}&token={_token}");
-        //}
-
     }
 }
