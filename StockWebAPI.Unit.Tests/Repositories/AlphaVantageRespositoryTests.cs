@@ -41,7 +41,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
                 "\"0.0518\",\"PayoutRatio\":\"0.5756\",\"DividendDate\":\"2020-12-10\",\"ExDividendDate\":\"2020-11-09\",\"LastSplitFactor\":\"2:1\",\"LastSplitDate\":\"1999-05-27\"}";
             _mockMessageHandler = new MockMessageHandler(mockJSONResponse, HttpStatusCode.OK);
             _httpClient = new HttpClient(_mockMessageHandler);
-            HttpClient liveHttp = new HttpClient();
+            HttpClient liveHttp = new();
             _alphaVantageRepo = new AlphaVantageRepository(liveHttp);
             AlphaVantageCompanyKeyStats result = await _alphaVantageRepo.GetKeyInformationAsync(symbol);
             using (new AssertionScope())

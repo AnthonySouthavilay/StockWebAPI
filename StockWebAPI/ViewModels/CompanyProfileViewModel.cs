@@ -59,7 +59,7 @@ namespace StockWebAPI.ViewModels
                 return new Address();
             }
             string[] addressParts = companyKeyStats.Address.Split(", ");
-            Address address = new Address()
+            Address address = new()
             {
                 StreetAddress = addressParts[0],
                 City = addressParts[1],

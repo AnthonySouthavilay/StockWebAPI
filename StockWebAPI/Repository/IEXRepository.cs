@@ -53,7 +53,7 @@ namespace StockWebAPI.Repository
         {
             string apiBaseKey = "Iex";
             string baseUrl = apiBaseKey.GetBaseUrl();
-            Uri uri = new Uri($"{baseUrl}stock/{symbol}/{apiEndpoint}?token={token}");
+            Uri uri = new($"{baseUrl}stock/{symbol}/{apiEndpoint}?token={token}");
             return uri;
         }
     }

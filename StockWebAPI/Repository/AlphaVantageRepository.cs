@@ -12,6 +12,7 @@ namespace StockWebAPI.Repository
     {
         private readonly HttpClient _httpClient;
         private const string apiKey = "";
+        private const string apiKey = "Y28C2P9CKJJP6OZ8";
         public AlphaVantageRepository(HttpClient httpClient)
         {
             this._httpClient = httpClient;
@@ -50,7 +51,7 @@ namespace StockWebAPI.Repository
         {
             string apiBaseKey = "AlphaAdvantage";
             string _baseUrl = apiBaseKey.GetBaseUrl();
-            Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
+            Uri uri = new($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
             return uri;
         }
 

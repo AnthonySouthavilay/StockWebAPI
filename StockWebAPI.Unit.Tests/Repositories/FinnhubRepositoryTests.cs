@@ -46,8 +46,8 @@ namespace StockWebAPI.Unit.Tests.Repositories
         public async Task GetCompanyNews_ValidSymbolProvideDate_ReturnsCompanyNewsModel()
         {
             string symbol = "TANK";
-            DateTime startDate = new DateTime(2020, 04, 30);
-            DateTime endDate = new DateTime(2020, 05, 01);
+            DateTime startDate = new(2020, 04, 30);
+            DateTime endDate = new(2020, 05, 01);
             string mockResponse = "[{\"category\":\"company\",\"datetime\":1588333111,\"headline\":\"WhatsApp Suddenly Gets Powerful\",\"id\":691320,\"image\":\"https:www.test.com\"," +
                 "\"related\":\"AAPL\",\"source\":\"https:www.forbes.com\",\"summary\":\"WhatsApp has been seriously boosted this week\u2014and from two very unlikely sources.\",\"url\":" +
                 "\"https:www.forbes.com\"},{\"category\":\"company\",\"datetime\":1588377600,\"headline\":\"2020 iPhone Alert: Apple\u2019s New Price Changes Revealed\",\"id\":691319,\"image" +
@@ -68,7 +68,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
         public async Task GetCompanyNews_ValidSymbolNoDate_ReturnsCurrentCompanyNews()
         {
             string symbol = "TNK";
-            DateTime currentDate = new DateTime(2020, 12, 31);
+            DateTime currentDate = new(2020, 12, 31);
             string mockResponse = "[{\"category\":\"company\",\"datetime\":1609391950,\"headline\":\"WhatsApp Suddenly Gets Powerful\",\"id\":691320,\"image\":\"https:www.test.com\"," +
                 "\"related\":\"AAPL\",\"source\":\"https:www.forbes.com\",\"summary\":\"WhatsApp has been seriously boosted this week\u2014and from two very unlikely sources.\",\"url\":" +
                 "\"https:www.forbes.com\"},{\"category\":\"company\",\"datetime\":1609391950,\"headline\":\"2020 iPhone Alert: Apple\u2019s New Price Changes Revealed\",\"id\":691319,\"image" +
@@ -111,7 +111,7 @@ namespace StockWebAPI.Unit.Tests.Repositories
 
         private static DateTime UnixTimestampToDateTime(double unixTime)
         {
-            DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            DateTime unixStart = new(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             long unixTimeStampInTicks = (long)(unixTime * TimeSpan.TicksPerSecond);
             String shortDateTime = new DateTime(unixStart.Ticks + unixTimeStampInTicks, System.DateTimeKind.Utc).ToShortDateString();
             return Convert.ToDateTime(shortDateTime);

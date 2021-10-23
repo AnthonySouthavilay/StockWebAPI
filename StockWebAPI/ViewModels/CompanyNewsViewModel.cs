@@ -27,7 +27,7 @@ namespace StockWebAPI.ViewModels
 
         private static string UnixTimestampToDateTime(double unixTime)
         {
-            DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            DateTime unixStart = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             long unixTimeStampInTicks = (long)(unixTime * TimeSpan.TicksPerSecond);
             string shortDateTime = new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Utc).ToShortDateString();
             return shortDateTime;
@@ -35,7 +35,7 @@ namespace StockWebAPI.ViewModels
 
         public CompanyNewsViewModel ConvertToCompanyNewsViewModel(GNewsCompanyNews.Article article)
         {
-            CompanyNewsViewModel companyNewsViewModel = new CompanyNewsViewModel()
+            CompanyNewsViewModel companyNewsViewModel = new()
             {
                 Date = article.PublishedAt.ToShortDateString(),
                 Headline = article.Title,
