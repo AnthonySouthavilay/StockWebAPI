@@ -9,12 +9,12 @@ namespace StockWebAPI.Unit.Tests.Models
 {
     class CompanyProfileViewModelTests
     {
-        private readonly CompanyProfileViewModel _companyProfileViewModel = new CompanyProfileViewModel();
+        private readonly CompanyProfileViewModel _companyProfileViewModel = new();
         
         [Test]
         public void ConvertToCompanyProfileViewModel_CompanyProfile_ReturnsCompanyProfileViewModel()
         {
-            IEXCompanyProfile mockCompanyProfile = new IEXCompanyProfile()
+            IEXCompanyProfile mockCompanyProfile = new()
             {
                 CompanyName = "Tank Southy LLC",
                 Symbol = "TANK",
@@ -38,7 +38,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanyProfileViewModel_CompanyKeyStats_ReturnsCompanyProfileViewModel()
         {
-            AlphaVantageCompanyKeyStats companyKeyStats = new AlphaVantageCompanyKeyStats()
+            AlphaVantageCompanyKeyStats companyKeyStats = new()
             {
                 Name = "Tank Southy LLP",
                 Symbol = "BONE",
@@ -56,7 +56,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanyProfileViewModel_CompanyKeyStatsAddress_ReturnsViewModelAddress()
         {
-            AlphaVantageCompanyKeyStats companyKeyStats = new AlphaVantageCompanyKeyStats()
+            AlphaVantageCompanyKeyStats companyKeyStats = new()
             {
                 Address = "One Apple Park Way, Cupertino, CA, United States, 95014",
                 FullTimeEmployees = "2"

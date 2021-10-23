@@ -12,7 +12,7 @@ namespace StockWebAPI.Helpers
         /// <param name="symbol">Stock symbol of company.</param>
         public static bool IsValid(this string symbol)
         {
-            Regex rgx = new Regex("[^A-Za-z0-9]");
+            Regex rgx = new("[^A-Za-z0-9]");
             if (!rgx.IsMatch(symbol) && !string.IsNullOrEmpty(symbol))
             {
                 return true;

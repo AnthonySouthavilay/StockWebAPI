@@ -8,12 +8,12 @@ namespace StockWebAPI.Unit.Tests.Models
 {
     class CompanyNewsViewModelTests
     {
-        private readonly CompanyNewsViewModel companyNewsViewModel = new CompanyNewsViewModel();
+        private readonly CompanyNewsViewModel companyNewsViewModel = new();
 
         [Test]
         public void ConvertToCompanyNewsViewModel_FinnhubCompanyNewsModel_ReturnsCompanyNewsViewModel()
         {
-            FinnhubCompanyNews companyNews = new FinnhubCompanyNews()
+            FinnhubCompanyNews companyNews = new()
             {
                 Image = "https://www.TestImage.com",
                 Source = "CNNFOX",
@@ -26,7 +26,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanyNewsViewModel_FinnhubCompanyNewsModel_ReturnsCorrectDateTime()
         {
-            FinnhubCompanyNews companyNews = new FinnhubCompanyNews()
+            FinnhubCompanyNews companyNews = new()
             {
                 Datetime = 1588333261
             };
@@ -39,7 +39,7 @@ namespace StockWebAPI.Unit.Tests.Models
         public void ConvertToCompanyNewsViewModel_GNewsCompanyNewsModel_ReturnsCompanyNewsViewModel()
         {
             GNewsCompanyNews.Article companyNewsArticle
-                = new GNewsCompanyNews.Article()
+                = new()
             {
                 Title = "test article",
                 Url = "www.test.com",

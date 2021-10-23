@@ -43,7 +43,7 @@ namespace StockWebAPI.Service
         }
         public async Task<CompanySummaryViewModel> GetCompanySummaryAsync(string symbol)
         {
-            CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
+            CompanySummaryViewModel companySummaryViewModel = new();
             if (symbol.IsValid())
             {
                 try
@@ -61,7 +61,7 @@ namespace StockWebAPI.Service
 
         private async Task<CompanyProfileViewModel> CompanyProfileApiBackupAsync(string symbol)
         {
-            CompanyProfileViewModel companyProfileViewModel = new CompanyProfileViewModel();
+            CompanyProfileViewModel companyProfileViewModel = new();
             try
             {
                 AlphaVantageCompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);
@@ -75,7 +75,7 @@ namespace StockWebAPI.Service
 
         private async Task<CompanySummaryViewModel> CompanySummaryApiBackupAsync(string symbol)
         {
-            CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
+            CompanySummaryViewModel companySummaryViewModel = new();
             try
             {
                 AlphaVantageCompanyKeyStats keyStats = await _alphaVantageRepository.GetKeyInformationAsync(symbol);

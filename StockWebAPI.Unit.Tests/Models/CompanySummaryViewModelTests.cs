@@ -9,12 +9,12 @@ namespace StockWebAPI.Unit.Tests.Models
 {
     class CompanySummaryViewModelTests
     {
-        private readonly CompanySummaryViewModel companySummaryViewModel = new CompanySummaryViewModel();
+        private readonly CompanySummaryViewModel companySummaryViewModel = new();
 
         [Test]
         public void ConvertToCompanySummaryViewModel_Quote_ReturnsViewModel()
         {
-            IexQuote quote = new IexQuote()
+            IexQuote quote = new()
             {
                 Symbol = "TANK",
                 CompanyName = "Tank Southy LLC",
@@ -32,7 +32,7 @@ namespace StockWebAPI.Unit.Tests.Models
         [Test]
         public void ConvertToCompanySummaryViewModel_CompanyKeyStats_ReturnsViewModel()
         {
-            AlphaVantageCompanyKeyStats keyStats = new AlphaVantageCompanyKeyStats() 
+            AlphaVantageCompanyKeyStats keyStats = new() 
             {
                 Symbol = "TANK",
                 Name = "Tank Southy LLC",
@@ -42,7 +42,7 @@ namespace StockWebAPI.Unit.Tests.Models
                 MarketCapitalization = "100",
                 PERatio = "22"
             };
-            AlphaVantageGlobalQuote alphaVantageQuote = new AlphaVantageGlobalQuote()
+            AlphaVantageGlobalQuote alphaVantageQuote = new()
             {
                 GlobalQuote = new AlphaVantageQuote()
                 {

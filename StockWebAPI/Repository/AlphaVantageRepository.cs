@@ -51,7 +51,7 @@ namespace StockWebAPI.Repository
         {
             string apiBaseKey = "AlphaAdvantage";
             string _baseUrl = apiBaseKey.GetBaseUrl();
-            Uri uri = new Uri($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
+            Uri uri = new($"{_baseUrl}{apiEndpoint}&symbol={symbol}&apikey={apiKey}");
             return uri;
         }
 
