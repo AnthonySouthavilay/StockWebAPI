@@ -12,18 +12,19 @@ namespace StockWebAPI.Repository
     {
         private readonly HttpClient _httpClient;
         private const string apiKey = "";
+        private const string apiKey = "Y28C2P9CKJJP6OZ8";
         public AlphaVantageRepository(HttpClient httpClient)
         {
             this._httpClient = httpClient;
         }
 
-        public async Task<CompanyKeyStats> GetKeyInformationAsync(string symbol)
+        public async Task<AlphaVantageCompanyKeyStats> GetKeyInformationAsync(string symbol)
         {
             string apiEndpoint = "OVERVIEW";
             Uri requestUri = ApiUriHelper(apiEndpoint, symbol);
             try
             {
-                return await _httpClient.GetFromJsonAsync<CompanyKeyStats>(requestUri);
+                return await _httpClient.GetFromJsonAsync<AlphaVantageCompanyKeyStats>(requestUri);
             }
             catch (Exception ex)
             {
