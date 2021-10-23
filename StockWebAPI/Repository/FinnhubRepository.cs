@@ -55,8 +55,6 @@ namespace StockWebAPI.Repository
 
         public async Task<FinnhubRecommendationTrends[]> GetRecommendationTrendsAsync(string symbol)
         {
-
-
             FinnhubRecommendationTrends[] recommendation;
             string apiEndpoint = "recommendation";
             try
