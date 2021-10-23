@@ -12,6 +12,8 @@ namespace StockWebAPI.Repository
     {
         private readonly HttpClient _httpClient;
         private const string _token = "";
+        private readonly static string apiBaseKey = "FinnHub";
+        private readonly static string _baseUrl = apiBaseKey.GetBaseUrl();
 
         public FinnhubRepository(HttpClient httpClient)
         {
@@ -53,8 +55,7 @@ namespace StockWebAPI.Repository
 
         public async Task<FinnhubRecommendationTrends[]> GetRecommendationTrendsAsync(string symbol)
         {
-            string apiBaseKey = "FinnHub";
-            string _baseUrl = apiBaseKey.GetBaseUrl();
+
 
             FinnhubRecommendationTrends[] recommendation;
             string apiEndpoint = "recommendation";
@@ -72,8 +73,6 @@ namespace StockWebAPI.Repository
 
         private static Uri DateUriHelper(string symbol, string apiEndpoint, DateTime startDate = new(), DateTime endDate = new())
         {
-            string apiBaseKey = "FinnHub";
-            string _baseUrl = apiBaseKey.GetBaseUrl();
             DateTime today = DateTime.Today;
             return startDate == DateTime.MinValue || endDate == DateTime.MinValue
                 ? new Uri($"{_baseUrl}{apiEndpoint}?symbol={symbol}&from={today:yyyy-MM-dd}&to={today:yyyy-MM-dd}&token={_token}")
